@@ -5,7 +5,7 @@ import CategoryGames from "@/components/category-games"
 
 async function getCategoryGames(categoryId: string) {
   try {
-    const response = await fetch(`http://localhost:8080/api/v1/games/category/${categoryId}`)
+    const response = await fetch(`/api/v1/games/category/${categoryId}`)
     const data = await response.json()
     return data.success ? data.data : []
   } catch (error) {

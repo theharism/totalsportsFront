@@ -21,6 +21,14 @@ const nextConfig = {
     parallelServerBuildTraces: true,
     parallelServerCompiles: true,
   },
+  async rewrites() {
+    return [
+      {
+        source: '/api/v1/:path*',
+        destination: 'https://dashgenius.space/api/v1/:path*',
+      },
+    ];
+  },
 }
 
 mergeConfig(nextConfig, userConfig)

@@ -6,7 +6,7 @@ import TeamGames from "@/components/team-games"
 
 async function getTeamGames(teamId: string) {
   try {
-    const response = await fetch(`http://localhost:8080/api/v1/games/team/${teamId}`)
+    const response = await fetch(`/api/v1/games/team/${teamId}`)
     const data = await response.json()
     return data.success ? data.data : []
   } catch (error) {

@@ -2,7 +2,7 @@
 
 export async function getCategories() {
   try {
-    const response = await fetch("http://localhost:8080/api/v1/categories")
+    const response = await fetch("https://dashgenius.space/api/v1/categories/top")
     const data = await response.json()
 
     if (data.success) {
@@ -17,7 +17,7 @@ export async function getCategories() {
 
 export async function getTeams() {
   try {
-    const response = await fetch("http://localhost:8080/api/v1/teams")
+    const response = await fetch("https://dashgenius.space/api/v1/teams/top")
     const data = await response.json()
 
     if (data.success) {
@@ -32,7 +32,7 @@ export async function getTeams() {
 
 export async function getGames() {
   try {
-    const response = await fetch("http://localhost:8080/api/v1/games")
+    const response = await fetch("https://dashgenius.space/api/v1/games")
     const data = await response.json()
 
     if (data.success) {

@@ -6,7 +6,8 @@ import { ExternalLink } from "lucide-react"
 import Link from "next/link"
 import { calculateRemainingTime, groupGamesByCategory } from "@/lib/api"
 
-export default function MainContent({ games }: { games: any[] }) {
+export default function 
+Content({ games }: { games: any[] }) {
   const [activeTab, setActiveTab] = useState("streams")
   const [filteredGames, setFilteredGames] = useState<any[]>([])
   const [groupedGames, setGroupedGames] = useState<any[]>([])
@@ -83,8 +84,8 @@ export default function MainContent({ games }: { games: any[] }) {
                       </div>
 
                       <div className="flex flex-1 flex-col px-4">
-                        <div className="text-sm text-gray-200">{game.team_one.name}</div>
-                        <div className="text-sm text-gray-200">{game.team_two.name}</div>
+                        <div className="text-sm text-gray-200">{game?.team_one?.name}</div>
+                        <div className="text-sm text-gray-200">{game?.team_two?.name}</div>
                       </div>
 
                       <Link href={`/game/${game.slug}`} className="rounded-md p-2 hover:bg-[#333333]">
@@ -128,8 +129,8 @@ export default function MainContent({ games }: { games: any[] }) {
                       </div>
 
                       <div className="flex flex-1 flex-col px-4">
-                        <div className="text-sm text-gray-200">{game.team_one.name}</div>
-                        <div className="text-sm text-gray-200">{game.team_two.name}</div>
+                        <div className="text-sm text-gray-200">{game?.team_one?.name}</div>
+                        <div className="text-sm text-gray-200">{game?.team_two?.name}</div>
                       </div>
 
                       <Link href={`/game/${game.slug}`} className="rounded-md p-2 hover:bg-[#333333]">
@@ -169,8 +170,8 @@ export default function MainContent({ games }: { games: any[] }) {
                       </div>
 
                       <div className="flex flex-1 flex-col px-4">
-                        <div className="text-sm text-gray-200">{game.team_one.name}</div>
-                        <div className="text-sm text-gray-200">{game.team_two.name}</div>
+                        <div className="text-sm text-gray-200">{game?.team_one?.name}</div>
+                        <div className="text-sm text-gray-200">{game?.team_two?.name}</div>
                       </div>
 
                       <Link href={`/game/${game.slug}`} className="rounded-md p-2 hover:bg-[#333333]">
