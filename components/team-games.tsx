@@ -117,7 +117,7 @@ export default function TeamGames({ games, teamId }: { games: Game[]; teamId: st
                 <div className="flex items-center gap-2 text-sm text-gray-200">
                   {otherTeam.logo ? (
                     <Image
-                      src={`http://localhost:3000/${otherTeam.logo}`}
+                      src={otherTeam.logo}
                       alt={otherTeam.name}
                       width={16}
                       height={16}
@@ -133,7 +133,7 @@ export default function TeamGames({ games, teamId }: { games: Game[]; teamId: st
                 <div className="flex items-center gap-2 text-sm text-gray-200">
                   {currentTeam.logo ? (
                     <Image
-                      src={`http://localhost:3000/${currentTeam.logo}`}
+                      src={currentTeam.logo}
                       alt={currentTeam.name}
                       width={16}
                       height={16}

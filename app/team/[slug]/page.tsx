@@ -48,7 +48,7 @@ export default async function TeamPage({ params }: { params: { slug: string } })
         <div className="mb-8 flex items-center gap-4">
           {team.logo ? (
             <Image
-              src={`http://localhost:3000/${team.logo}`}
+              src={team.logo}
               alt={team.name}
               width={64}
               height={64}

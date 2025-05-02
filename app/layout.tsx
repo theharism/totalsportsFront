@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { QueryProvider } from '@/providers/query-provider'
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
-  generator: 'v0.dev',
+  title: 'Totalsportek',
+  description: 'Totalsportek',
+  generator: 'Totalsportek',
 }
 
 export default function RootLayout({
@@ -13,8 +14,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
+      <html lang="en">
+        <body>
+          <QueryProvider>
+            {children}
+          </QueryProvider>
+        </body>
+      </html>
   )
 }

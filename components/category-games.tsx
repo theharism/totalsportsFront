@@ -104,7 +104,7 @@ export default function CategoryGames({ games }: { games: Game[] }) {
               <div className="flex items-center gap-2 text-sm text-gray-200">
                 {game.team_one.logo ? (
                   <Image
-                    src={`http://localhost:3000/${game.team_one.logo}`}
+                    src={game.team_one.logo}
                     alt={game.team_one.name}
                     width={16}
                     height={16}
@@ -120,7 +120,7 @@ export default function CategoryGames({ games }: { games: Game[] }) {
               <div className="flex items-center gap-2 text-sm text-gray-200">
                 {game.team_two.logo ? (
                   <Image
-                    src={`http://localhost:3000/${game.team_two.logo}`}
+                    src={game.team_two.logo}
                     alt={game.team_two.name}
                     width={16}
                     height={16}

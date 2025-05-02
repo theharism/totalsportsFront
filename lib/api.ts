@@ -86,6 +86,7 @@ export function groupGamesByCategory(games: any[]) {
         id: categoryId,
         name: game.category.name,
         games: [],
+        logo: game.category.logo,
       }
     }
 
