@@ -1,6 +1,6 @@
-import axios from 'axios'
+import axiosInstance from '@/lib/axios'
 
 export const getAllBlogs = async () => {
-  const { data } = await axios.get('/api/v1/blogs')
+  const { data } = await axiosInstance.get('/api/v1/blogs')
   return data
 }
