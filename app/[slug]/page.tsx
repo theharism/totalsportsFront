@@ -3,16 +3,17 @@ import MainContent from "@/components/main-content"
 import LeftSidebar from "@/components/left-sidebar"
 import RightSidebar from "@/components/right-sidebar"
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query"
-import { getAllGames, getGamesByCategory } from "@/queries/getGamesList"
+import { getGamesByCategory } from "@/queries/getGamesList"
 import { getAllTeams } from "@/queries/getTeamsList"
 import { getAllCategories } from "@/queries/getCategoryList"
 
-export default async function Home() {
+export default async function Home({ params }: { params: { slug: string } }) {
   const queryClient = new QueryClient()
+
   await Promise.all([
     queryClient.prefetchQuery({
-      queryKey: ["games", "football"],
-      queryFn: () => getGamesByCategory(""),
+      queryKey: ["games", params.slug],
+      queryFn: () => getGamesByCategory(params.slug),
     }),
     queryClient.prefetchQuery({
       queryKey: ["teams"],
@@ -33,7 +34,7 @@ export default async function Home() {
             <LeftSidebar />
           </div>
           <div className="md:col-span-2 lg:col-span-6">
-            <MainContent slug={""} />
+            <MainContent slug={params.slug}/>
           </div>
           <div className="md:col-span-1 lg:col-span-3">
             <RightSidebar />

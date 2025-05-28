@@ -2,15 +2,15 @@ import Link from "next/link";
 
 export default function Header() {
   const sports = [
-    { name: "Football", href: "#" },
-    { name: "MMA", href: "#" },
-    { name: "Boxing", href: "#" },
-    { name: "Formula 1", href: "#" },
-    { name: "NBA", href: "#" },
-    { name: "NFL", href: "#" },
-    { name: "NHL", href: "#" },
-    { name: "MLB", href: "#" },
-    { name: "Blog", href: "#" },
+    { name: "Football", href: "/soccer" },
+    { name: "MMA", href: "/mma" },
+    { name: "Boxing", href: "/boxing" },
+    { name: "Formula 1", href: "/f1" },
+    { name: "NBA", href: "/nba" },
+    { name: "NFL", href: "/nfl" },
+    { name: "NHL", href: "/nhl" },
+    { name: "MLB", href: "/mlb" },
+    { name: "Blog", href: "/blog" },
   ];
 
   return (

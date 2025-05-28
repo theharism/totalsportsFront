@@ -1,31 +1,22 @@
+'use client';
+
 import Header from "@/components/header"
 import Link from "next/link"
 import Image from "next/image"
 import { getGames } from "@/lib/api"
 import StreamsTable from "@/components/streams-table"
+import { useQuery } from "@tanstack/react-query"
+import { getStreamsByGameSlug } from "@/queries/getStreamsByGameSlug"
+import { useMemo } from "react"
+import _ from "lodash"
+import { getGameBySlug } from "@/queries/getGameBySlug";
 
-async function getGameStreams(gameId: string) {
-  try {
-    const response = await fetch(`/api/v1/streams/game/${gameId.toString()}`)
-    const data = await response.json()
-    return data.success ? data.data : []
-  } catch (error) {
-    console.error("Error fetching game streams:", error)
-    return []
-  }
-}
-
-export default async function GamePage({ params }: { params: { slug: string } }) {
-  // Fetch all games to find the matching one
-  const games = await getGames()
-  const game = games.find((g: any) => g.slug === params.slug)
-
-  if (!game) {
-    return <div>Game not found</div>
-  }
-
+export default function GamePage({ params }: { params: { slug: string } }) {
   // Fetch streams for this game
-  const streams = await getGameStreams(game._id)
+  const { data: gameData } = useQuery({ queryKey: ["game", params.slug], queryFn: () => getGameBySlug(params.slug) });
+  const game = useMemo(() => _.get(gameData, "data", {}), [gameData]);
+  const { data } = useQuery({ queryKey: ["games"], queryFn: () => getStreamsByGameSlug(params.slug) });
+  const streams = useMemo(() => _.get(data, "data", []), [data]);
 
   // Format the date and time
   const date = new Date(game.starting_date)

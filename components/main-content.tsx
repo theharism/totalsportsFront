@@ -6,13 +6,14 @@ import { ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { calculateRemainingTime, groupGamesByCategory } from "@/lib/api";
 import { useQuery } from "@tanstack/react-query";
-import { getAllGames } from "@/queries/getGamesList";
 import _ from "lodash";
 import { Game } from "@/types/games";
 import Image from "next/image";
+import { getGamesByCategory } from "@/queries/getGamesList";
 
-export default function Content() {
-  const { data } = useQuery({ queryKey: ["games"], queryFn: getAllGames });
+export default function Content({slug}: {slug: string}) {
+
+  const { data } = useQuery({ queryKey: ["games", slug], queryFn: () => getGamesByCategory(slug) });
   const games = useMemo(() => _.get(data, "data", []), [data]);
   const [activeTab, setActiveTab] = useState("streams");
   const [filteredGames, setFilteredGames] = useState<any[]>([]);

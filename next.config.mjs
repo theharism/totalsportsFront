@@ -25,11 +25,11 @@ const nextConfig = {
     return [
       {
         source: '/api/v1/:path*',
-        destination: 'https://dashgenius.space/api/v1/:path*',
+        destination: 'http://localhost:3000/api/v1/:path*',
       },
       {
         source: '/uploads/:path*',
-        destination: 'https://dashgenius.space/uploads/:path*',
+        destination: 'http://localhost:3000/uploads/:path*',
       },
     ];
   },
