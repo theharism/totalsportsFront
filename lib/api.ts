@@ -2,7 +2,7 @@
 
 export async function getCategories() {
   try {
-    const response = await fetch("https://0b38-154-208-41-117.ngrok-free.app//api/v1/categories/top")
+    const response = await fetch("https://totalsportek.world/api/v1/categories/top")
     const data = await response.json()
 
     if (data.success) {
@@ -17,7 +17,7 @@ export async function getCategories() {
 
 export async function getTeams() {
   try {
-    const response = await fetch("https://0b38-154-208-41-117.ngrok-free.app//api/v1/teams/top")
+    const response = await fetch("https://totalsportek.world/api/v1/teams/top")
     const data = await response.json()
 
     if (data.success) {
@@ -32,7 +32,7 @@ export async function getTeams() {
 
 export async function getGames() {
   try {
-    const response = await fetch("https://0b38-154-208-41-117.ngrok-free.app//api/v1/games")
+    const response = await fetch("https://totalsportek.world/api/v1/games")
     const data = await response.json()
 
     if (data.success) {
