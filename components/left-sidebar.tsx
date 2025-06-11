@@ -1,28 +1,12 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
-import { useQueries } from "@tanstack/react-query";
-import { getTopCategories } from "@/queries/getTopCategoriesList";
-import { getTopTeams } from "@/queries/getTopTeamsList";
-import _ from "lodash";
 
-export default function LeftSidebar() {
-  const results = useQueries({
-    queries: [
-      {
-        queryKey: ["categories"],
-        queryFn: getTopCategories,
-      },
-      {
-        queryKey: ["teams"],
-        queryFn: getTopTeams,
-      },
-    ],
-  });
+export default function LeftSidebar({categories, teams}: {categories: any[], teams: any[]}) {
+  // const categoriesData = await getTopCategories();
+  // const teamsData = await getTopTeams();
 
-  const categories = _.get(results[0].data, "data", []);
-  const teams = _.get(results[1].data, "data", []);
+  // const categories = _.get(categoriesData, "data", []);
+  // const teams = _.get(teamsData, "data", []);
 
   return (
     <>

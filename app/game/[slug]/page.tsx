@@ -1,31 +1,18 @@
 import Header from "@/components/header"
 import Link from "next/link"
 import Image from "next/image"
-import { getGames } from "@/lib/api"
 import StreamsTable from "@/components/streams-table"
-
-async function getGameStreams(gameId: string) {
-  try {
-    const response = await fetch(`/api/v1/streams/game/${gameId.toString()}`)
-    const data = await response.json()
-    return data.success ? data.data : []
-  } catch (error) {
-    console.error("Error fetching game streams:", error)
-    return []
-  }
-}
+import { getStreamsByGameSlug } from "@/queries/getStreamsByGameSlug"
+import _ from "lodash"
+import { getGameBySlug } from "@/queries/getGameBySlug"
+import { MatchCountdown } from "@/components/ui/countdown"
 
 export default async function GamePage({ params }: { params: { slug: string } }) {
-  // Fetch all games to find the matching one
-  const games = await getGames()
-  const game = games.find((g: any) => g.slug === params.slug)
-
-  if (!game) {
-    return <div>Game not found</div>
-  }
-
   // Fetch streams for this game
-  const streams = await getGameStreams(game._id)
+  const gameData = await getGameBySlug(params.slug)
+  const game = _.get(gameData, "data", {})
+  const data = await getStreamsByGameSlug(params.slug)
+  const streams = _.get(data, "data", [])
 
   // Format the date and time
   const date = new Date(game.starting_date)
@@ -66,11 +53,62 @@ export default async function GamePage({ params }: { params: { slug: string } })
             </div>
           </div>
 
-          <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
+          {/* Mobile Layout - Horizontal */}
+          <div className="flex items-center justify-between gap-2 md:hidden">
+            {/* Team One - Mobile */}
+            <div className="flex flex-1 items-center gap-2">
+              {game.team_one.logo ? (
+                <Image
+                  src={game.team_one.logo}
+                  alt={game.team_one.name}
+                  width={40}
+                  height={40}
+                  className="h-10 w-10 rounded-full object-cover"
+                />
+              ) : (
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-800">
+                  <span className="text-sm font-bold">{game.team_one.name.charAt(0)}</span>
+                </div>
+              )}
+              <h3 className="text-sm font-bold text-white truncate">{game.team_one.name}</h3>
+            </div>
+
+            {/* Status - Mobile */}
+            <div className="flex flex-col items-center px-2">
+              <div className="mb-1 rounded-md bg-red-600 px-2 py-1 text-xs font-bold text-white">
+                {game.status === "Live" ? "LIVE" : game.status.toUpperCase()}
+              </div>
+              <div className="flex gap-1 text-lg font-bold text-white">
+                <span>-</span>
+                <span>-</span>
+              </div>
+            </div>
+
+            {/* Team Two - Mobile */}
+            <div className="flex flex-1 items-center justify-end gap-2">
+              <h3 className="text-sm font-bold text-white truncate text-right">{game.team_two.name}</h3>
+              {game.team_two.logo ? (
+                <Image
+                  src={game.team_two.logo}
+                  alt={game.team_two.name}
+                  width={40}
+                  height={40}
+                  className="h-10 w-10 rounded-full object-cover"
+                />
+              ) : (
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-800">
+                  <span className="text-sm font-bold">{game.team_two.name.charAt(0)}</span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Desktop Layout - Vertical */}
+          <div className="hidden md:flex flex-col items-center justify-between gap-8 md:flex-row">
             <div className="flex flex-1 flex-col items-center text-center">
               {game.team_one.logo ? (
                 <Image
-                  src={`http://localhost:3000/${game.team_one.logo}`}
+                  src={game.team_one.logo}
                   alt={game.team_one.name}
                   width={80}
                   height={80}
@@ -89,15 +127,16 @@ export default async function GamePage({ params }: { params: { slug: string } })
                 {game.status === "Live" ? "LIVE" : game.status.toUpperCase()}
               </div>
               <div className="flex gap-4 text-3xl font-bold text-white">
-                <span>-</span>
-                <span>-</span>
+                {/* <span>-</span>
+                <span>-</span> */}
+                <MatchCountdown startingDate={game.starting_date} startingTime={game.starting_time} />
               </div>
             </div>
 
             <div className="flex flex-1 flex-col items-center text-center">
               {game.team_two.logo ? (
                 <Image
-                  src={`http://localhost:3000/${game.team_two.logo}`}
+                  src={game.team_two.logo}
                   alt={game.team_two.name}
                   width={80}
                   height={80}
@@ -122,4 +161,3 @@ export default async function GamePage({ params }: { params: { slug: string } })
     </div>
   )
 }
-

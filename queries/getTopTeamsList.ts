@@ -1,7 +1,6 @@
-"use client";
-import axios from 'axios'
+import axiosInstance from '@/lib/axios';
 
 export const getTopTeams = async () => {
-  const { data } = await axios.get('/api/v1/teams/top')
+  const { data } = await axiosInstance.get('/api/v1/teams/top')
   return data
 }

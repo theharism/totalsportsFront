@@ -4,7 +4,7 @@ import { useState } from "react"
 import { ExternalLink } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
-import { calculateRemainingTime } from "@/lib/api"
+import { calculateRemainingTime } from "@/lib/utils"
 
 interface Team {
   _id: string
@@ -104,9 +104,7 @@ export default function TeamGames({ games, teamId }: { games: Game[]; teamId: st
                 </div>
                 <div>
                   <div className="text-sm text-orange-500">
-                    {game.status === "Live"
-                      ? "In progress"
-                      : game.status === "Finished"
+                    {game.status === "Finished"
                         ? "Finished"
                         : calculateRemainingTime(game.starting_date, game.starting_time)}
                   </div>

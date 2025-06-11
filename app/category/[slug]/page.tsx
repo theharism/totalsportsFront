@@ -1,30 +1,16 @@
-import Header from "@/components/header"
-import Link from "next/link"
-import { getCategories } from "@/lib/api"
-import CategoryGames from "@/components/category-games"
-
-async function getCategoryGames(categoryId: string) {
-  try {
-    const response = await fetch(`/api/v1/games/category/${categoryId}`)
-    const data = await response.json()
-    return data.success ? data.data : []
-  } catch (error) {
-    console.error("Error fetching category games:", error)
-    return []
-  }
-}
+import Header from "@/components/header";
+import Link from "next/link";
+import CategoryGames from "@/components/category-games";
+import { getGamesByCategory } from "@/queries/getGamesList";
+import { getCategoryBySlug } from "@/queries/getCategoryBySlug";
+import _ from "lodash";
 
 export default async function CategoryPage({ params }: { params: { slug: string } }) {
-  // Fetch all categories to find the matching one
-  const categories = await getCategories()
-  const category = categories.find((c: any) => c.slug === params.slug)
-
-  if (!category) {
-    return <div>Category not found</div>
-  }
-
-  // Fetch games for this category
-  const games = await getCategoryGames(category._id)
+  const { slug } = params;
+  const categoryData = await getCategoryBySlug(slug);
+  const gamesData = await getGamesByCategory(slug);
+  const games = _.get(gamesData, "data", []);
+  const category = _.get(categoryData, "data", {});
 
   return (
     <div className="min-h-screen bg-[#121212]">
@@ -37,7 +23,7 @@ export default async function CategoryPage({ params }: { params: { slug: string 
           </Link>
           <span className="text-gray-600">/</span>
           <Link href="#" className="text-blue-500 hover:underline">
-            Soccer Streams
+            {category.name}
           </Link>
           <span className="text-gray-600">/</span>
           <span className="text-gray-400">{category.name} Live Stream</span>
@@ -57,6 +43,5 @@ export default async function CategoryPage({ params }: { params: { slug: string 
         </div>
       </div>
     </div>
-  )
+  );
 }
-

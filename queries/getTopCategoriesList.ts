@@ -1,8 +1,6 @@
-'use client';
-
-import axios from 'axios'
+import axiosInstance from '@/lib/axios';
 
 export const getTopCategories = async () => {
-  const { data } = await axios.get('/api/v1/categories/top')
+  const { data } = await axiosInstance.get('/api/v1/categories/top')
   return data
 }

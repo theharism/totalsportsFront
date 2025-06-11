@@ -1,11 +1,11 @@
-import axios from 'axios'
+import axiosInstance from '@/lib/axios'
 
 export const getAllStreams = async () => {
-  const { data } = await axios.get('/api/v1/streams')
+  const { data } = await axiosInstance.get('/api/v1/streams')
   return data
 }
 
 export const getStreamById = async (id: string) => {
-  const { data } = await axios.get(`/api/v1/streams/${id}`)
+  const { data } = await axiosInstance.get(`/api/v1/streams/${id}`)
   return data
 }
