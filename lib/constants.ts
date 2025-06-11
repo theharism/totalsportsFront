@@ -1,0 +1,16 @@
+export const sports = [
+  { name: "Football", href: "/soccer", icon: "1743797211587-Major League Soccer (MLS).png" },
+  { name: "Cricket", href: "/cricket", icon: "1743798491398-cricket.png" },
+  { name: "NBA", href: "/nba", icon: "1743796697113-National_Basketball_Association_logo.svg.png" },
+  { name: "F1", href: "/f1", icon: "1743798860602-F1-Logo.png" },
+  { name: "Tennis", href: "/tennis", icon: "1743797211587-Major League Soccer (MLS).png" },
+  { name: "WWE", href: "/wwe", icon: "1743797211587-Major League Soccer (MLS).png" },
+  { name: "UFC", href: "/ufc", icon: "1743797211587-Major League Soccer (MLS).png" },
+  { name: "Boxing", href: "/boxing", icon: "1743798682283-boxing.png" },
+  { name: "NFL", href: "/nfl", icon: "1743798256602-National_Football_League_logo.svg.png" },
+  { name: "Rugby", href: "/rugby", icon: "1743797211587-Major League Soccer (MLS).png" },
+  { name: "MLB", href: "/mlb", icon: "1743797211587-Major League Soccer (MLS).png" },
+  { name: "MotoGP", href: "/motogp", icon: "1743797211587-Major League Soccer (MLS).png" },
+  { name: "NHL", href: "/nhl", icon: "1743798190832-05_NHL_Shield.svg.png" },
+  { name: "Blog", href: "/blog", icon: "blog" },
+]

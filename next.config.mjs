@@ -25,11 +25,11 @@ const nextConfig = {
     return [
       {
         source: '/api/v1/:path*',
-        destination: 'http://localhost:3000/api/v1/:path*',
+        destination: 'https://efe9-103-151-43-82.ngrok-free.app/api/v1/:path*',
       },
       {
         source: '/uploads/:path*',
-        destination: 'http://localhost:3000/uploads/:path*',
+        destination: 'https://efe9-103-151-43-82.ngrok-free.app/uploads/:path*',
       },
     ];
   },

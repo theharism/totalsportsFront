@@ -1,20 +1,19 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ExternalLink } from "lucide-react";
 import Link from "next/link";
-import { calculateRemainingTime, groupGamesByCategory } from "@/lib/api";
-import { useQuery } from "@tanstack/react-query";
-import _ from "lodash";
+import { calculateRemainingTime, groupGamesByCategory } from "@/lib/utils";
 import { Game } from "@/types/games";
 import Image from "next/image";
-import { getGamesByCategory } from "@/queries/getGamesList";
+import { sports } from "@/lib/constants";
 
-export default function Content({slug}: {slug: string}) {
+export default function Content({games}: {games: Game[]}) {
 
-  const { data } = useQuery({ queryKey: ["games", slug], queryFn: () => getGamesByCategory(slug) });
-  const games = useMemo(() => _.get(data, "data", []), [data]);
+  // const gamesData = getGamesByCategory(slug)
+  // const games = useMemo(() => _.get(gamesData, "data", []), [gamesData]);
+  
   const [activeTab, setActiveTab] = useState("streams");
   const [filteredGames, setFilteredGames] = useState<any[]>([]);
   const [groupedGames, setGroupedGames] = useState<any[]>([]);
@@ -25,6 +24,7 @@ export default function Content({slug}: {slug: string}) {
     switch (activeTab) {
       case "streams":
         filtered = games.filter((game: Game) => game.status === "Live");
+        console.log(filtered[0])
         break;
       case "schedule":
         filtered = games.filter((game: Game) => game.status === "Upcoming");
@@ -48,6 +48,36 @@ export default function Content({slug}: {slug: string}) {
   };
 
   return (
+    <>
+    <div className="flex gap-4 overflow-x-auto mt-2 pb-2 scrollbar-hide sm:hidden">
+      <div className="flex gap-4 min-w-max">
+        {sports.map((sport) => (
+          <Link
+            key={sport.name}
+            href={sport.href}
+            className="flex flex-col items-center gap-1 min-w-[60px] hover:opacity-75 transition-opacity"
+            title={sport.name}
+          >
+            <div className="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-lg overflow-hidden">
+              {sport.icon === "blog" ? (
+                <svg className="w-5 h-5 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" />
+                </svg>
+              ) : (
+                <Image
+                  src={`/icons/${sport.icon}`}
+                  alt={sport.name}
+                  width={24}
+                  height={24}
+                  className="object-contain"
+                />
+              )}
+            </div>
+            <span className="text-xs text-gray-300 text-center leading-tight">{sport.name}</span>
+          </Link>
+        ))}
+      </div>
+    </div>
     <div className="rounded-lg bg-[#1a1a1a] p-4">
       <Tabs
         defaultValue="streams"
@@ -111,9 +141,7 @@ export default function Content({slug}: {slug: string}) {
                         </div>
                         <div>
                           <div className="text-sm text-orange-500">
-                            {game.status === "Live"
-                              ? "In progress"
-                              : calculateRemainingTime(
+                            {calculateRemainingTime(
                                   game.starting_date,
                                   game.starting_time
                                 )}
@@ -275,5 +303,6 @@ export default function Content({slug}: {slug: string}) {
         </TabsContent>
       </Tabs>
     </div>
+    </>
   );
 }
