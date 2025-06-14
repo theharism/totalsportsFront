@@ -26,7 +26,7 @@ export default async function Home({ params }: { params: { slug: string } }) {
             <LeftSidebar categories={categories} teams={teams}/>
           </div>
           <div className="md:col-span-2 lg:col-span-6">
-            <MainContent games={games}/>
+            <MainContent games={games} isCategory={true}/>
           </div>
           <div className="md:col-span-1 lg:col-span-3">
             <RightSidebar />

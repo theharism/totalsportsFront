@@ -84,7 +84,7 @@ export function calculateRemainingTime(startDateStr: string, startTimeStr: strin
 
     return `${hours}h from now`;
   } else {
-    return `${startDate.toLocaleString()}`;
+    return startDate.toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
   }
 }
 
