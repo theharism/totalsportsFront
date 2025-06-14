@@ -2,6 +2,12 @@ import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { AxiosError } from 'axios'
 import { toast } from '@/hooks/use-toast'
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -29,65 +35,69 @@ export function handleServerError(error: unknown) {
   toast({ variant: 'destructive', title: errMsg })
 }
 
-// Helper function to calculate remaining time
-// export function calculateRemainingTime(startingDate: string, startingTime: string) {
-//   const now = new Date()
+// // Helper function to calculate remaining time
+// export function calculateRemainingTime(startDateStr: string, startTimeStr: string): string {
+//   const now = new Date();
+
+//   const combined = `${startDateStr} ${startTimeStr}`;
+//   const ukTime = dayjs.tz(combined, 'YYYY-MM-DD HH:mm', 'Europe/London');
+
+//   // Step 3: Convert to local time (e.g., Pakistan)
+//   const localTime = ukTime.tz(dayjs.tz.guess()); // User’s timezone
+
+//   console.log("Local Time:", localTime.format('YYYY-MM-DD hh:mm A'));
 
 //   // Parse the starting date and time
-//   const [hours, minutes] = startingTime.split(":").map(Number)
-//   const startDate = new Date(startingDate)
-//   startDate.setHours(hours, minutes)
+//   const [startHour, startMinute] = startTimeStr.split(":").map(Number);
+//   const startDate = new Date(startDateStr);
+//   startDate.setHours(startHour, startMinute, 0, 0); // Set time on the date
 
-//   // If the start time has passed, return "In progress"
-//   if (startDate <= now) {
-//     return "In progress"
+//   const isToday =
+//     now.toDateString() === startDate.toDateString();
+
+//   if (isToday) {
+//     const diffMs = startDate.getTime() - now.getTime();
+
+//     if (diffMs <= 0) {
+//       return "In Progress";
+//     }
+
+//     const diffMinutes = Math.floor(diffMs / 60000);
+//     const hours = Math.floor(diffMinutes / 60);
+//     const minutes = diffMinutes % 60;
+//     const str = `${hours}h ${minutes}m from now`;
+//     return str;
+//   } else {
+//     return startDate.toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
 //   }
-
-//   const isToday = now.toDateString() === startDate.toDateString();
-
-//   // Calculate the difference in milliseconds
-//   const diffMs = startDate.getTime() - now.getTime()
-
-//   // Convert to hours
-//   const diffHours = Math.floor(diffMs / (1000 * 60 * 60))
-
-//   if (diffHours < 1) {
-//     // If less than an hour, show minutes
-//     const diffMinutes = Math.floor(diffMs / (1000 * 60))
-//     return `${diffMinutes}m from now`
-//   }
-
-//   return `${diffHours}h from now`
 // }
 
+// Helper function to calculate remaining time
 export function calculateRemainingTime(startDateStr: string, startTimeStr: string): string {
-  const now = new Date();
+  // Combine date and time in UK timezone
+  const ukTime = dayjs.tz(`${startDateStr} ${startTimeStr}`, 'YYYY-MM-DD HH:mm', 'Europe/London');
 
-  // Parse the starting date and time
-  const [startHour, startMinute] = startTimeStr.split(":").map(Number);
-  const startDate = new Date(startDateStr);
-  startDate.setHours(startHour, startMinute, 0, 0); // Set time on the date
+  // Convert UK time to local user's timezone
+  const localTime = ukTime.tz(dayjs.tz.guess());
+  const now = dayjs();
 
-  const isToday =
-    now.toDateString() === startDate.toDateString();
+  const isToday = now.isSame(localTime, 'day');
 
   if (isToday) {
-    const diffMs = startDate.getTime() - now.getTime();
+    const diffMinutes = localTime.diff(now, 'minute');
 
-    if (diffMs <= 0) {
+    if (diffMinutes <= 0) {
       return "In Progress";
     }
 
-    const diffMinutes = Math.floor(diffMs / 60000);
     const hours = Math.floor(diffMinutes / 60);
     const minutes = diffMinutes % 60;
-    const str = `${hours}h ${minutes}m from now`;
-    return str;
-  } else {
-    return startDate.toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+    return `${hours}h ${minutes}m from now`;
   }
-}
 
+  // For future dates, return formatted local time
+  return localTime.format('MMMM D, YYYY • h:mm A');
+}
 
 // Group games by category
 export function groupGamesByCategory(games: any[]) {
