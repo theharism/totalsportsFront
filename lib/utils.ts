@@ -81,8 +81,8 @@ export function calculateRemainingTime(startDateStr: string, startTimeStr: strin
     const diffMinutes = Math.floor(diffMs / 60000);
     const hours = Math.floor(diffMinutes / 60);
     const minutes = diffMinutes % 60;
-
-    return `${hours}h from now`;
+    const str = `${hours}h ${minutes}m from now`;
+    return str;
   } else {
     return startDate.toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
   }
