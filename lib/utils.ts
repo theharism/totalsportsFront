@@ -9,6 +9,8 @@ import timezone from 'dayjs/plugin/timezone';
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
+dayjs.tz.setDefault("Europe/London")
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
@@ -73,18 +75,43 @@ export function handleServerError(error: unknown) {
 // }
 
 // Helper function to calculate remaining time
+// export function calculateRemainingTime(startDateStr: string, startTimeStr: string): string {
+//   // Combine date and time in UK timezone
+//   const ukTime = dayjs.tz(`${startDateStr} ${startTimeStr}`, 'YYYY-MM-DD HH:mm', 'Europe/London');
+//   const now = dayjs.tz('Europe/London');
+
+//   const isToday = now.isSame(ukTime, 'day');
+
+//   if (isToday) {
+//     const diffMinutes = ukTime.diff(now, 'minute');
+
+//     if (diffMinutes <= 0) {
+//       return "In Progress";
+//     }
+
+//     const hours = Math.floor(diffMinutes / 60);
+//     const minutes = diffMinutes % 60;
+//     return `${hours}h ${minutes}m from now`;
+//   }
+
+//   // For future dates, return formatted local time
+//   return ukTime.format('MMMM D, YYYY • h:mm A');  
+// }
+
 export function calculateRemainingTime(startDateStr: string, startTimeStr: string): string {
-  // Combine date and time in UK timezone
+
+  if (!startDateStr || !startTimeStr) {
+    console.warn("Missing date or time:", { startDateStr, startTimeStr });
+    return "Invalid time";
+  }
+  
   const ukTime = dayjs.tz(`${startDateStr} ${startTimeStr}`, 'YYYY-MM-DD HH:mm', 'Europe/London');
+  const now = dayjs(); // Current time in UK
 
-  // Convert UK time to local user's timezone
-  const localTime = ukTime.tz(dayjs.tz.guess());
-  const now = dayjs();
-
-  const isToday = now.isSame(localTime, 'day');
+  const isToday = now.isSame(ukTime, 'day');
 
   if (isToday) {
-    const diffMinutes = localTime.diff(now, 'minute');
+    const diffMinutes = ukTime.diff(now, 'minute');
 
     if (diffMinutes <= 0) {
       return "In Progress";
@@ -95,8 +122,8 @@ export function calculateRemainingTime(startDateStr: string, startTimeStr: strin
     return `${hours}h ${minutes}m from now`;
   }
 
-  // For future dates, return formatted local time
-  return localTime.format('MMMM D, YYYY • h:mm A');
+  // For future UK dates
+  return ukTime.format('MMMM D, YYYY • h:mm A');
 }
 
 // Group games by category
