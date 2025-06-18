@@ -106,10 +106,10 @@ export function calculateRemainingTime(startDateStr: string, startTimeStr: strin
   }
   
   const ukTime = dayjs.tz(`${startDateStr} ${startTimeStr}`, 'YYYY-MM-DD HH:mm', 'Europe/London');
-  const now = dayjs(); // Current time in UK
+  const now = dayjs().tz('Europe/London'); // Current time in UK
 
   const isToday = now.isSame(ukTime, 'day');
-
+  
   if (isToday) {
     const diffMinutes = ukTime.diff(now, 'minute');
 
