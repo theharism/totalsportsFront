@@ -1,3 +1,5 @@
+export const revalidate = 60;
+
 import Header from "@/components/header";
 import Link from "next/link";
 import CategoryGames from "@/components/category-games";
