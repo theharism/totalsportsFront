@@ -105,8 +105,8 @@ export function calculateRemainingTime(startDateStr: string, startTimeStr: strin
     return "Invalid time";
   }
   
-  const ukTime = dayjs.tz(`${startDateStr} ${startTimeStr}`, 'YYYY-MM-DD HH:mm', 'Europe/London');
-  const now = dayjs().tz('Europe/London'); // Current time in UK
+  const ukTime = dayjs.tz(`${startDateStr} ${startTimeStr}`, 'YYYY-MM-DD HH:mm', 'Etc/GMT');
+  const now = dayjs().tz('Etc/GMT'); 
 
   const isToday = now.isSame(ukTime, 'day');
   
