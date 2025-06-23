@@ -6,6 +6,7 @@ import CategoryGames from "@/components/category-games";
 import { getGamesByCategory } from "@/queries/getGamesList";
 import { getCategoryBySlug } from "@/queries/getCategoryBySlug";
 import _ from "lodash";
+import Image from "next/image";
 
 export default async function CategoryPage({ params }: { params: { slug: string } }) {
   const { slug } = params;
@@ -33,9 +34,19 @@ export default async function CategoryPage({ params }: { params: { slug: string 
 
         {/* Category Header */}
         <div className="mb-8 flex items-center gap-4">
+          {category.logo ? (
+                      <Image
+                        src={category.logo}
+                        alt={category.name}
+                        width={64}
+                        height={64}
+                        className="h-16 w-16 rounded-full object-cover"
+                      />
+                    ) : (
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#1a1a1a]">
             <span className="text-2xl font-bold text-white">{category.name.charAt(0)}</span>
           </div>
+                    )}
           <h1 className="text-3xl font-bold text-white">{category.name} Matches Live Stream</h1>
         </div>
 
