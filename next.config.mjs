@@ -28,19 +28,19 @@ const nextConfig = {
         destination: 'https://dashgenius.space/api/v1/:path*',
       },
       {
-        source: 'team/uploads/:path*',
+        source: '/team/uploads/:path*',
         destination: 'https://dashgenius.space/uploads/:path*',
       },
       {
-        source: 'game/uploads/:path*',
+        source: '/game/uploads/:path*',
         destination: 'https://dashgenius.space/uploads/:path*',
       },
       {
-        source: 'category/uploads/:path*',
+        source: '/category/uploads/:path*',
         destination: 'https://dashgenius.space/uploads/:path*',
       },
       {
-        source: 'blog/uploads/:path*',
+        source: '/blog/uploads/:path*',
         destination: 'https://dashgenius.space/uploads/:path*',
       },
     ];
