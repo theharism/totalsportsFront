@@ -27,12 +27,36 @@ export default function Footer() {
   ]
 
   const liveStreamLinks = [
-    { name: "Liverpool Live Stream", href: "/liverpool-live-stream" },
-    { name: "Juventus Stream", href: "/juventus-stream" },
-    { name: "Premier League Live Stream", href: "/premier-league-live-stream" },
-    { name: "Champions League", href: "/champions-league" },
-    { name: "Formula 1 Live Stream", href: "/formula-1-live-stream" },
+    { name: "Football  Live Streams", href: "https://totalsportek.world/soccer" },
+    { name: "Cricket Live Streams", href: "https://totalsportek.world/cricket" },
+    { name: "NBA Live Streams", href: "https://totalsportek.world/nba" },
+    { name: "F1 Live Streams", href: "https://totalsportek.world/f1" },
+    { name: "Tennis Live Streams", href: "https://totalsportek.world/tennis" },
+    { name: "WWE Live Streams", href: "https://totalsportek.world/wwe" },
+    { name: "UFC Live Streams", href: "https://totalsportek.world/ufc" },
+    { name: "Boxing Live Streams", href: "https://totalsportek.world/boxing" },
+    { name: "NFL Live Streams", href: "https://totalsportek.world/nfl" },
+    { name: "Rugby Live Streams", href: "https://totalsportek.world/rugby" },
+    { name: "MLB Live Streams", href: "https://totalsportek.world/mlb" },
+    { name: "MotoGP Live Streams", href: "https://totalsportek.world/motogp" },
+    { name: "NHL Live Streams", href: "https://totalsportek.world/nhl" },
   ]
+
+  // const liveStreamLinks = [
+  //   { name: "Football  Live Streams", href: "/liverpool-live-stream" },
+  //   { name: "Cricket Live Streams", href: "/juventus-stream" },
+  //   { name: "NBA Live Streams", href: "/premier-league-live-stream" },
+  //   { name: "F1 Live Streams", href: "/champions-league" },
+  //   { name: "Tennis Live Streams", href: "/formula-1-live-stream" },
+  //   { name: "WWE Live Streams", href: "" },
+  //   { name: "", href: "" },
+  //   { name: "", href: "" },
+  //   { name: "", href: "" },
+  //   { name: "", href: "" },
+  //   { name: "", href: "" },
+  //   { name: "", href: "" },
+  //   { name: "", href: "" },
+  // ]
 
   return (
     <footer className="text-white py-4 mt-auto border-t border-gray-600">
@@ -46,7 +70,7 @@ export default function Footer() {
         </div>
 
         {/* Main Links Row 1 */}
-        <div className="text-center mb-2">
+        {/* <div className="text-center mb-2">
           <div className="flex flex-wrap justify-center items-center gap-1">
             {mainLinks.map((link, index) => (
               <span key={link.name} className="flex items-center">
@@ -60,10 +84,10 @@ export default function Footer() {
               </span>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Stream Links Row 2 */}
-        <div className="text-center mb-2">
+        {/* <div className="text-center mb-2">
           <div className="flex flex-wrap justify-center items-center gap-1">
             {streamLinks.map((link, index) => (
               <span key={link.name} className="flex items-center">
@@ -77,10 +101,10 @@ export default function Footer() {
               </span>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Additional Links Row 3 */}
-        <div className="text-center mb-4">
+        {/* <div className="text-center mb-4">
           <div className="flex flex-wrap justify-center items-center gap-1">
             {additionalLinks.map((link, index) => (
               <span key={link.name} className="flex items-center">
@@ -94,7 +118,7 @@ export default function Footer() {
               </span>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Live Stream Links */}
         <div className="text-center mb-4">
@@ -121,6 +145,9 @@ export default function Footer() {
             >
               TOTALSPORTEK.WORLD
             </Link>
+          </p>
+          <p className="text-gray-400 text-xs">
+            Disclaimer: None of the videos is hosted by this site. Streams hosted on external sites like Youtube etc are provided with links here. This site is not responsible for the legality of the content. For legal issues, please contact appropriate media file owners/hosters.
           </p>
         </div>
       </div>
