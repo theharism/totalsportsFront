@@ -28,7 +28,7 @@ const nextConfig = {
         destination: 'https://dashgenius.space/api/v1/:path*',
       },
       {
-        source: '/uploads/:path*',
+        source: ':path*/uploads/:path*',
         destination: 'https://dashgenius.space/uploads/:path*',
       },
     ];
