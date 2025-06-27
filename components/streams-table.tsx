@@ -45,7 +45,7 @@ export default function StreamsTable({ streams }: { streams: Stream[] }) {
                 <Button
                   variant="default"
                   className="bg-blue-600 hover:bg-blue-700"
-                  onClick={() => window.open(stream.link, "_blank")}
+                  onClick={() => window.open(`${stream.streaming_link}/stream/${stream.slug}`, "_blank")}
                 >
                   <ExternalLink className="mr-2 h-4 w-4" />
                   Watch
