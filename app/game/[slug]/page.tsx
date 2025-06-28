@@ -65,7 +65,7 @@ export default async function GamePage({ params }: { params: { slug: string } })
                   alt={game.team_one.name}
                   width={40}
                   height={40}
-                  className="h-10 w-10 rounded-full object-cover"
+                  className="h-10 w-10 object-cover"
                 />
               ) : (
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-800">
@@ -95,7 +95,7 @@ export default async function GamePage({ params }: { params: { slug: string } })
                   alt={game.team_two.name}
                   width={40}
                   height={40}
-                  className="h-10 w-10 rounded-full object-cover"
+                  className="h-10 w-10 object-cover"
                 />
               ) : (
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-800">
@@ -114,7 +114,7 @@ export default async function GamePage({ params }: { params: { slug: string } })
                   alt={game.team_one.name}
                   width={80}
                   height={80}
-                  className="mb-2 h-20 w-20 rounded-full object-cover"
+                  className="mb-2 h-20 w-20 object-cover"
                 />
               ) : (
                 <div className="mb-2 flex h-20 w-20 items-center justify-center rounded-full bg-gray-800">
@@ -142,7 +142,7 @@ export default async function GamePage({ params }: { params: { slug: string } })
                   alt={game.team_two.name}
                   width={80}
                   height={80}
-                  className="mb-2 h-20 w-20 rounded-full object-cover"
+                  className="mb-2 h-20 w-20 object-cover"
                 />
               ) : (
                 <div className="mb-2 flex h-20 w-20 items-center justify-center rounded-full bg-gray-800">

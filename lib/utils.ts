@@ -98,20 +98,25 @@ export function handleServerError(error: unknown) {
 //   return ukTime.format('MMMM D, YYYY • h:mm A');  
 // }
 
-export function calculateRemainingTime(startDateStr: string, startTimeStr: string): string {
+export function calculateRemainingTime(startDateStr: string, startTimeStr: string, endDateStr?: string, endTimeStr?: string): string {
 
   if (!startDateStr || !startTimeStr) {
     console.warn("Missing date or time:", { startDateStr, startTimeStr });
     return "Invalid time";
   }
   
-  const ukTime = dayjs.tz(`${startDateStr} ${startTimeStr}`, 'YYYY-MM-DD HH:mm', 'Etc/GMT');
+  const startingTime = dayjs.tz(`${startDateStr} ${startTimeStr}`, 'YYYY-MM-DD HH:mm', 'Etc/GMT');
+  let endingTime;
+  if(endDateStr && endTimeStr){
+    endingTime = dayjs.tz(`${endDateStr} ${endTimeStr}`, 'YYYY-MM-DD HH:mm', 'Etc/GMT');
+  }
   const now = dayjs().tz('Etc/GMT'); 
 
-  const isToday = now.isSame(ukTime, 'day');
+  const isToday = now.isSame(startingTime, 'day');
+  const isBetween = now.isAfter(startingTime) && endingTime && now.isBefore(endingTime);
   
-  if (isToday) {
-    const diffMinutes = ukTime.diff(now, 'minute');
+  if (isToday || isBetween) {
+    const diffMinutes = startingTime.diff(now, 'minute');
 
     if (diffMinutes <= 0) {
       return "In Progress";
@@ -123,7 +128,7 @@ export function calculateRemainingTime(startDateStr: string, startTimeStr: strin
   }
 
   // For future UK dates
-  return ukTime.format('MMMM D, YYYY • h:mm A');
+  return startingTime.format('MMMM D, YYYY • h:mm A');
 }
 
 // Group games by category

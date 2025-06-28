@@ -40,7 +40,7 @@ export default async function CategoryPage({ params }: { params: { slug: string 
                         alt={category.name}
                         width={64}
                         height={64}
-                        className="h-16 w-16 rounded-full object-cover"
+                        className="h-16 w-16 object-cover"
                       />
                     ) : (
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#1a1a1a]">

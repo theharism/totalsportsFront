@@ -7,12 +7,23 @@ import Link from "next/link";
 import { calculateRemainingTime, groupGamesByCategory } from "@/lib/utils";
 import { Game } from "@/types/games";
 import Image from "next/image";
-import { sports } from "@/lib/constants";
+import { web_sports, mobile_sports } from "@/lib/constants";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function Content({games, isCategory}: {games: Game[], isCategory: boolean}) {
 
   const [activeTab, setActiveTab] = useState("streams");
   const [groupedGames, setGroupedGames] = useState<any[]>([]);
+  const [sports, setSports] = useState(web_sports)
+  const isMobile = useIsMobile()
+
+   useEffect(() => {
+    if (isMobile) {
+      setSports(mobile_sports)
+    } else {
+      setSports(web_sports)
+    }
+  }, [isMobile])
 
   useEffect(() => {
     let filtered = [];
@@ -48,7 +59,7 @@ export default function Content({games, isCategory}: {games: Game[], isCategory:
     <>
     <div className="flex gap-4 overflow-x-auto mt-2 pb-2 scrollbar-hide sm:hidden">
       <div className="flex gap-4 min-w-max">
-        {sports.map((sport) => (
+        {sports?.map((sport) => (
           <Link
             key={sport.name}
             href={sport.href}
@@ -56,7 +67,7 @@ export default function Content({games, isCategory}: {games: Game[], isCategory:
             title={sport.name}
           >
             <div className="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-lg overflow-hidden">
-              {sport.icon === "blog" ? (
+              {sport.icon === "blog" && isMobile ? (
                 <svg className="w-5 h-5 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" />
                 </svg>
@@ -112,13 +123,13 @@ export default function Content({games, isCategory}: {games: Game[], isCategory:
             groupedGames.map((category) => (
               <div key={category.id} className="space-y-2">
                 <div className="flex items-center gap-2 border-b border-gray-800 pb-2">
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-800">
+                  <div className="flex h-6 w-6 items-center justify-center bg-gray-800">
                      <Image
                         src={category.logo}
                         alt={category.name}
                         width={15}
                         height={15}
-                        className="h-4 w-4 rounded-full object-cover"
+                        className="h-4 w-4 object-cover"
                       />
                   </div>
                   <h3 className="text-lg font-medium text-white">
@@ -140,7 +151,9 @@ export default function Content({games, isCategory}: {games: Game[], isCategory:
                           <div className="text-sm text-orange-500">
                             {calculateRemainingTime(
                                   game.starting_date,
-                                  game.starting_time
+                                  game.starting_time,
+                                  game.ending_date,
+                                  game.ending_time
                                 )}
                           </div>
                         </div>
@@ -178,13 +191,13 @@ export default function Content({games, isCategory}: {games: Game[], isCategory:
             groupedGames.map((category) => (
               <div key={category.id} className="space-y-2">
                 <div className="flex items-center gap-2 border-b border-gray-800 pb-2">
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-800">
+                  <div className="flex h-6 w-6 items-center justify-center bg-gray-800">
                   <Image
                         src={category.logo}
                         alt={category.name}
                         width={15}
                         height={15}
-                        className="h-4 w-4 rounded-full object-cover"
+                        className="h-4 w-4 object-cover"
                       />
                   </div>
                   <h3 className="text-lg font-medium text-white">
@@ -241,13 +254,13 @@ export default function Content({games, isCategory}: {games: Game[], isCategory:
             groupedGames.map((category) => (
               <div key={category.id} className="space-y-2">
                 <div className="flex items-center gap-2 border-b border-gray-800 pb-2">
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-800">
+                  <div className="flex h-6 w-6 items-center justify-center bg-gray-800">
                       <Image
                         src={category.logo}
                         alt={category.name}
                         width={15}
                         height={15}
-                        className="h-4 w-4 rounded-full object-cover"
+                        className="h-4 w-4 object-cover"
                       />
                   </div>
                   <h3 className="text-lg font-medium text-white">
@@ -306,13 +319,13 @@ export default function Content({games, isCategory}: {games: Game[], isCategory:
               groupedGames.map((category) => (
                 <div key={category.id} className="space-y-2">
                   <div className="flex items-center gap-2 border-b border-gray-800 pb-2">
-                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-800">
+                    <div className="flex h-6 w-6 items-center justify-center bg-gray-800">
                       <Image
                           src={category.logo}
                           alt={category.name}
                           width={15}
                           height={15}
-                          className="h-4 w-4 rounded-full object-cover"
+                          className="h-4 w-4 object-cover"
                         />
                     </div>
                     <h3 className="text-lg font-medium text-white">
@@ -334,7 +347,9 @@ export default function Content({games, isCategory}: {games: Game[], isCategory:
                             <div className="text-sm text-orange-500">
                               {calculateRemainingTime(
                                     game.starting_date,
-                                    game.starting_time
+                                    game.starting_time,
+                                    game.ending_date,
+                                    game.ending_time
                                   )}
                             </div>
                           </div>

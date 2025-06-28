@@ -26,6 +26,8 @@ interface Game {
   slug: string
   starting_date: string
   starting_time: string
+  ending_date?: string
+  ending_time?: string
   status: string
   team_one: Team
   team_two: Team
@@ -93,7 +95,7 @@ export default function CategoryGames({ games }: { games: Game[] }) {
                 <div className="text-sm text-orange-500">
                   {game.status === "Finished"
                       ? "Finished"
-                      : calculateRemainingTime(game.starting_date, game.starting_time)}
+                      : calculateRemainingTime(game.starting_date, game.starting_time, game?.ending_date, game?.ending_time)}
                 </div>
               </div>
             </div>
@@ -106,7 +108,7 @@ export default function CategoryGames({ games }: { games: Game[] }) {
                     alt={game.team_one.name}
                     width={16}
                     height={16}
-                    className="h-4 w-4 rounded-full object-cover"
+                    className="h-4 w-4 object-cover"
                   />
                 ) : (
                   <div className="flex h-4 w-4 items-center justify-center rounded-full bg-gray-800">
@@ -122,7 +124,7 @@ export default function CategoryGames({ games }: { games: Game[] }) {
                     alt={game.team_two.name}
                     width={16}
                     height={16}
-                    className="h-4 w-4 rounded-full object-cover"
+                    className="h-4 w-4 object-cover"
                   />
                 ) : (
                   <div className="flex h-4 w-4 items-center justify-center rounded-full bg-gray-800">

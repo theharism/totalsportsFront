@@ -25,7 +25,7 @@ export default function LeftSidebar({categories, teams}: {categories: any[], tea
                     alt={category.name}
                     width={15}
                     height={15}
-                    className="h-4 w-4 rounded-full object-cover"
+                    className="h-4 w-4 object-cover"
                   />
                 ) : (
                   <div className="flex h-5 w-5 items-center justify-center rounded-full bg-gray-800">
@@ -54,7 +54,7 @@ export default function LeftSidebar({categories, teams}: {categories: any[], tea
                     alt={team.name}
                     width={15}
                     height={15}
-                    className="h-4 w-4 rounded-full object-cover"
+                    className="h-4 w-4 object-cover"
                   />
                 ) : (
                   <div className="flex h-5 w-5 items-center justify-center rounded-full bg-gray-800">

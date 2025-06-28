@@ -2,11 +2,22 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { useState } from "react"
-import { sports } from "@/lib/constants"
+import { useEffect, useState } from "react"
+import { web_sports, mobile_sports } from "@/lib/constants"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [sports, setSports] = useState(web_sports)
+  const isMobile = useIsMobile()
+
+  useEffect(() => {
+    if (isMobile) {
+      setSports(mobile_sports)
+    } else {
+      setSports(web_sports)
+    }
+  }, [isMobile])
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -46,7 +57,7 @@ export default function Header() {
           {isMenuOpen && (
             <div className="absolute left-0 right-0 top-full bg-black border-t border-gray-800 z-50">
               <nav className="py-4">
-                {sports.map((sport, index) => (
+                {sports?.map((sport, index) => (
                   <Link
                     key={sport.name}
                     href={sport.href}
@@ -74,7 +85,7 @@ export default function Header() {
             </Link>
             <div className="h-4 sm:h-0 sm:w-0"></div>
             <nav className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
-              {sports.map((sport) => (
+              {sports?.map((sport) => (
                 <Link
                   key={sport.name}
                   href={sport.href}
