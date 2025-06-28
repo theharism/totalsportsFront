@@ -66,7 +66,7 @@ export default function Content({games, isCategory}: {games: Game[], isCategory:
             className="flex flex-col items-center gap-1 min-w-[60px] hover:opacity-75 transition-opacity"
             title={sport.name}
           >
-            <div className="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-lg overflow-hidden">
+            <div className="w-8 h-8 flex items-center justify-center overflow-hidden">
               {sport.icon === "blog" && isMobile ? (
                 <svg className="w-5 h-5 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" />
@@ -123,13 +123,13 @@ export default function Content({games, isCategory}: {games: Game[], isCategory:
             groupedGames.map((category) => (
               <div key={category.id} className="space-y-2">
                 <div className="flex items-center gap-2 border-b border-gray-800 pb-2">
-                  <div className="flex h-6 w-6 items-center justify-center bg-gray-800">
+                  <div className="flex h-6 w-6 items-center justify-center">
                      <Image
                         src={category.logo}
                         alt={category.name}
                         width={15}
                         height={15}
-                        className="h-4 w-4 object-cover"
+                        className="h-6 w-6 object-cover"
                       />
                   </div>
                   <h3 className="text-lg font-medium text-white">
@@ -191,13 +191,13 @@ export default function Content({games, isCategory}: {games: Game[], isCategory:
             groupedGames.map((category) => (
               <div key={category.id} className="space-y-2">
                 <div className="flex items-center gap-2 border-b border-gray-800 pb-2">
-                  <div className="flex h-6 w-6 items-center justify-center bg-gray-800">
+                  <div className="flex h-6 w-6 items-center justify-center">
                   <Image
                         src={category.logo}
                         alt={category.name}
                         width={15}
                         height={15}
-                        className="h-4 w-4 object-cover"
+                        className="h-6 w-6 object-cover"
                       />
                   </div>
                   <h3 className="text-lg font-medium text-white">
@@ -254,13 +254,13 @@ export default function Content({games, isCategory}: {games: Game[], isCategory:
             groupedGames.map((category) => (
               <div key={category.id} className="space-y-2">
                 <div className="flex items-center gap-2 border-b border-gray-800 pb-2">
-                  <div className="flex h-6 w-6 items-center justify-center bg-gray-800">
+                  <div className="flex h-6 w-6 items-center justify-center">
                       <Image
                         src={category.logo}
                         alt={category.name}
                         width={15}
                         height={15}
-                        className="h-4 w-4 object-cover"
+                        className="h-6 w-6 object-cover"
                       />
                   </div>
                   <h3 className="text-lg font-medium text-white">
@@ -319,13 +319,13 @@ export default function Content({games, isCategory}: {games: Game[], isCategory:
               groupedGames.map((category) => (
                 <div key={category.id} className="space-y-2">
                   <div className="flex items-center gap-2 border-b border-gray-800 pb-2">
-                    <div className="flex h-6 w-6 items-center justify-center bg-gray-800">
+                    <div className="flex h-6 w-6 items-center justify-center">
                       <Image
                           src={category.logo}
                           alt={category.name}
                           width={15}
                           height={15}
-                          className="h-4 w-4 object-cover"
+                          className="h-6 w-6 object-cover"
                         />
                     </div>
                     <h3 className="text-lg font-medium text-white">
