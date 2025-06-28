@@ -44,8 +44,18 @@ export default async function GamePage({ params }: { params: { slug: string } })
         {/* Game Info Card */}
         <div className="mb-8 rounded-lg bg-[#1a1a1a] p-6">
           <div className="mb-4 flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-800">
-              <span className="text-sm">{game.category.name.charAt(0)}</span>
+            <div className="flex h-10 w-10 items-center justify-center">
+              {game.category.logo ? (
+                <Image
+                  src={game.category.logo}
+                  alt={game.category.name}
+                  width={40}
+                  height={40}
+                  className="h-10 w-10 object-cover"
+                />
+              ) : (
+                <span className="text-sm">{game.category.name.charAt(0)}</span>
+              )}
             </div>
             <div>
               <h2 className="text-lg font-bold text-white">{game.category.name}</h2>
@@ -158,6 +168,11 @@ export default async function GamePage({ params }: { params: { slug: string } })
         <div className="rounded-lg bg-[#1a1a1a] p-6">
           <h3 className="mb-6 text-xl font-bold text-white">Live Streams</h3>
           <StreamsTable streams={streams} />
+          <div className="py-5">
+            <h1 className="text-4xl mb-1 font-bold text-white">TotalSportek {game.name}</h1>
+            <h3 className="text-xl mb-1 font-medium text-white">Watch {game.name} at UK time on {game.starting_date}</h3>
+            <h3 className="text-xl mb-1 font-medium text-white">Watch {game.name} live stream Online</h3>
+          </div>
         </div>
       </div>
     </div>

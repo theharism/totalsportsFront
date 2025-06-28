@@ -18,14 +18,14 @@ export default function StreamsTable({ streams }: { streams: Stream[] }) {
 
   return (
     <div className="overflow-x-auto">
-      <table className="w-full">
-        <thead>
+      <table className="table-fixed w-full">
+         <thead>
           <tr className="border-b border-gray-800 text-left">
-            <th className="pb-4 text-sm font-medium text-gray-400">Streamer</th>
-            <th className="pb-4 text-sm font-medium text-gray-400">Channel</th>
-            {!isMobile && <th className="pb-4 text-sm font-medium text-gray-400">Language</th>}
-            {!isMobile && <th className="pb-4 text-sm font-medium text-gray-400">Ads</th>}
-            <th className="pb-4 text-sm font-medium text-gray-400">Action</th>
+            <th className="w-1/5 pb-4 text-sm font-medium text-gray-400">Streamer</th>
+            <th className="w-1/5 pb-4 text-sm font-medium text-gray-400">Channel</th>
+            {!isMobile && <th className="w-1/5 pb-4 text-sm font-medium text-gray-400">Language</th>}
+            {!isMobile && <th className="w-1/5 pb-4 text-sm font-medium text-gray-400">Ads</th>}
+            <th className="w-1/5 pb-4 text-sm font-medium text-gray-400">Action</th>
           </tr>
         </thead>
         <tbody>
