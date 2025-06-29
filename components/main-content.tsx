@@ -11,7 +11,7 @@ import { web_sports, mobile_sports } from "@/lib/constants";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function Content({games, isCategory}: {games: Game[], isCategory: boolean}) {
-
+console.log(games)
   const [activeTab, setActiveTab] = useState("streams");
   const [groupedGames, setGroupedGames] = useState<any[]>([]);
   const [sports, setSports] = useState(web_sports)
@@ -73,7 +73,7 @@ export default function Content({games, isCategory}: {games: Game[], isCategory:
                 </svg>
               ) : (
                 <Image
-                  src={`/icons/${sport.icon}`}
+                  src={`/uploads/${sport.icon}`}
                   alt={sport.name}
                   width={24}
                   height={24}
@@ -159,14 +159,18 @@ export default function Content({games, isCategory}: {games: Game[], isCategory:
                         </div>
                       </div>
 
-                      <div className="flex flex-1 flex-col px-4">
+                      {game?.type === 'Teams' ? <div className="flex flex-1 flex-col px-4">
                         <div className="text-sm text-gray-200">
                           {game?.team_one?.name}
                         </div>
                         <div className="text-sm text-gray-200">
                           {game?.team_two?.name}
                         </div>
-                      </div>
+                      </div> : <div className="flex flex-1 flex-col px-4">
+                        <div className="text-sm text-gray-200">
+                          {game?.name}
+                        </div>
+                      </div>}
 
                       <Link
                         href={`/game/${game.slug}`}

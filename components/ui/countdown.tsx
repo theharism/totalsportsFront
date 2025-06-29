@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import dayjs from "dayjs"
 import utc from "dayjs/plugin/utc"
 import timezone from "dayjs/plugin/timezone"
+import { useIsMobile } from "./use-mobile";
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
@@ -65,6 +66,7 @@ interface MatchCountdownProps {
 export function MatchCountdown({ startingDate, startingTime }: MatchCountdownProps) {
   const [timeLeft, setTimeLeft] = useState("00:00:00")
   const [started, setStarted] = useState(false)
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const ukTime = dayjs.tz(`${startingDate} ${startingTime}`, 'YYYY-MM-DD HH:mm', 'Europe/London')
@@ -97,7 +99,7 @@ export function MatchCountdown({ startingDate, startingTime }: MatchCountdownPro
   const [hh, mm, ss] = timeLeft.split(":")
 
   return (
-    <div className="flex gap-4 text-3xl font-bold text-white">
+    <div className={`flex gap-4 text-${isMobile ? 'xl' : '3xl'} font-bold text-white`}>
       {!started && (
         <>
           <span>{hh}</span>

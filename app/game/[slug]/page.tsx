@@ -68,7 +68,7 @@ export default async function GamePage({ params }: { params: { slug: string } })
           {/* Mobile Layout - Horizontal */}
           <div className="flex items-center justify-between gap-2 md:hidden">
             {/* Team One - Mobile */}
-            <div className="flex flex-1 items-center gap-2">
+            <div className="flex flex-1 flex-col items-center gap-2">
               {game.team_one.logo ? (
                 <Image
                   src={game.team_one.logo}
@@ -91,14 +91,14 @@ export default async function GamePage({ params }: { params: { slug: string } })
                 {game.status === "Live" ? "LIVE" : game.status.toUpperCase()}
               </div>
               <div className="flex gap-1 text-lg font-bold text-white">
-                <span>-</span>
-                <span>-</span>
+                {/* <span>-</span>
+                <span>-</span> */}
+                <MatchCountdown startingDate={game.starting_date} startingTime={game.starting_time} />
               </div>
             </div>
 
             {/* Team Two - Mobile */}
-            <div className="flex flex-1 items-center justify-end gap-2">
-              <h3 className="text-sm font-bold text-white truncate text-right">{game.team_two.name}</h3>
+            <div className="flex flex-1 flex-col items-center justify-end gap-2">
               {game.team_two.logo ? (
                 <Image
                   src={game.team_two.logo}
@@ -112,6 +112,7 @@ export default async function GamePage({ params }: { params: { slug: string } })
                   <span className="text-sm font-bold">{game.team_two.name.charAt(0)}</span>
                 </div>
               )}
+              <h3 className="text-sm font-bold text-white truncate text-right">{game.team_two.name}</h3>
             </div>
           </div>
 
@@ -170,7 +171,7 @@ export default async function GamePage({ params }: { params: { slug: string } })
           <StreamsTable streams={streams} />
           <div className="py-5">
             <h1 className="text-4xl mb-1 font-bold text-white">TotalSportek {game.name}</h1>
-            <h3 className="text-xl mb-1 font-medium text-white">Watch {game.name} at UK time on {game.starting_date}</h3>
+            <h3 className="text-xl mb-1 font-medium text-white">Watch {game.name} at UK time on {game.starting_date} {game.starting_time}</h3>
             <h3 className="text-xl mb-1 font-medium text-white">Watch {game.name} live stream Online</h3>
           </div>
         </div>
