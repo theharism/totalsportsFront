@@ -11,7 +11,6 @@ import { web_sports, mobile_sports } from "@/lib/constants";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function Content({games, isCategory}: {games: Game[], isCategory: boolean}) {
-console.log(games)
   const [activeTab, setActiveTab] = useState("streams");
   const [groupedGames, setGroupedGames] = useState<any[]>([]);
   const [sports, setSports] = useState(web_sports)

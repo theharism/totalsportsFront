@@ -3,6 +3,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { getTeams } from "@/lib/api"
 import TeamGames from "@/components/team-games"
+import _ from "lodash"
+import { getBlogByTeam } from "@/queries/getBlogByTeam"
 
 async function getTeamGames(teamId: string) {
   try {
@@ -26,6 +28,8 @@ export default async function TeamPage({ params }: { params: { slug: string } })
 
   // Fetch games for this team
   const games = await getTeamGames(team._id)
+  const blogData = await getBlogByTeam(team._id);
+  const blog = _.get(blogData, "data", []);
 
   return (
     <div className="min-h-screen bg-[#121212]">
@@ -65,6 +69,12 @@ export default async function TeamPage({ params }: { params: { slug: string } })
         {/* Games Section */}
         <div className="rounded-lg bg-[#1a1a1a] p-6">
           <TeamGames games={games} teamId={team._id} />
+        </div>
+
+        <div className="rounded-lg bg-[#1a1a1a] p-6">
+          {blog?.map((blog: any) => (
+            <div key={blog._id} dangerouslySetInnerHTML={{ __html: blog.content }} />
+          ))}
         </div>
       </div>
     </div>

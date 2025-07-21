@@ -7,6 +7,7 @@ import { getGamesByCategory } from "@/queries/getGamesList";
 import { getCategoryBySlug } from "@/queries/getCategoryBySlug";
 import _ from "lodash";
 import Image from "next/image";
+import { getBlogByCategory } from "@/queries/getBlogByCategory";
 
 export default async function CategoryPage({ params }: { params: { slug: string } }) {
   const { slug } = params;
@@ -14,7 +15,9 @@ export default async function CategoryPage({ params }: { params: { slug: string 
   const gamesData = await getGamesByCategory(slug);
   const games = _.get(gamesData, "data", []);
   const category = _.get(categoryData, "data", {});
-
+  const blogData = await getBlogByCategory(category._id);
+  const blog = _.get(blogData, "data", []);
+  
   return (
     <div className="min-h-screen bg-[#121212]">
       <Header />
@@ -53,6 +56,12 @@ export default async function CategoryPage({ params }: { params: { slug: string 
         {/* Games Section */}
         <div className="rounded-lg bg-[#1a1a1a] p-6">
           <CategoryGames games={games} />
+        </div>
+
+        <div className="rounded-lg bg-[#1a1a1a] p-6">
+          {blog?.map((blog: any) => (
+            <div key={blog._id} dangerouslySetInnerHTML={{ __html: blog.content }} />
+          ))}
         </div>
       </div>
     </div>
