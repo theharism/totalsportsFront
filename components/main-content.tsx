@@ -10,7 +10,7 @@ import Image from "next/image";
 import { web_sports, mobile_sports } from "@/lib/constants";
 import { useIsMobile } from "@/hooks/use-mobile";
 
-export default function Content({games, isCategory}: {games: Game[], isCategory: boolean}) {
+export default function Content({games, isCategory, blog}: {games: Game[], isCategory: boolean, blog: any}) {
   const [activeTab, setActiveTab] = useState("streams");
   const [groupedGames, setGroupedGames] = useState<any[]>([]);
   const [sports, setSports] = useState(web_sports)
@@ -387,6 +387,12 @@ export default function Content({games, isCategory}: {games: Game[], isCategory:
         </div>
       )}
     </div>
+
+    {blog.length > 0 && <div className="rounded-lg bg-[#1a1a1a] p-6 mt-1">
+      {blog?.map((blog: any) => (
+        <div key={blog._id} dangerouslySetInnerHTML={{ __html: blog.content }} />
+      ))}
+    </div>}
     </>
   );
 }

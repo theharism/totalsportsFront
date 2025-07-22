@@ -10,6 +10,7 @@ import { getTopCategories } from "@/queries/getTopCategoriesList"
 import { getTopTeams } from "@/queries/getTopTeamsList"
 import Footer from "@/components/footer"
 import { getAllBlogs } from "@/queries/getBlogsList"
+import { getBlogByCategorySlug } from "@/queries/getBlogByCategorySlug";
 
 export default async function Home() {
   const gamesData = await getGamesByCategory("All")
@@ -22,6 +23,8 @@ export default async function Home() {
   const categories = _.get(categoriesData, "data", [])
   const teams = _.get(teamsData, "data", [])
   const blogs = _.get(blogsData, "data", [])
+  const blogData = await getBlogByCategorySlug("All");
+  const blog = _.get(blogData, "data", []);  
 
   return (
     <div className="min-h-screen bg-[#121212]">
@@ -29,7 +32,7 @@ export default async function Home() {
       <div className="container mx-auto grid grid-cols-1 gap-4 px-4 py-2 md:grid-cols-4 lg:grid-cols-12">
         {/* Main Content - First on mobile, center on desktop */}
         <div className="order-1 md:order-2 md:col-span-2 lg:col-span-6">
-          <MainContent games={games} isCategory={false} />
+          <MainContent games={games} isCategory={false} blog={blog} />
         </div>
 
         {/* Left Sidebar - Second on mobile, first on desktop */}
