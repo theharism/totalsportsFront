@@ -21,7 +21,7 @@ export default async function TeamPage({ params }: { params: { slug: string } })
   // Fetch all teams to find the matching one
   const teams = await getTeams()
   const team = teams.find((t: any) => t.slug === params.slug)
-
+console.log(team)
   if (!team) {
     return <div>Team not found</div>
   }
