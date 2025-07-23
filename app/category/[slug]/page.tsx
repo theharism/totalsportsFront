@@ -60,7 +60,7 @@ export default async function CategoryPage({ params }: { params: { slug: string 
 
         <div className="rounded-lg bg-[#1a1a1a] p-6">
           {blog?.map((blog: any) => (
-            <div key={blog._id} dangerouslySetInnerHTML={{ __html: blog.content }} />
+            <div className="blog" key={blog._id} dangerouslySetInnerHTML={{ __html: blog.content }} />
           ))}
         </div>
       </div>

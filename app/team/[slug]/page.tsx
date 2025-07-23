@@ -73,7 +73,7 @@ export default async function TeamPage({ params }: { params: { slug: string } })
 
         <div className="rounded-lg bg-[#1a1a1a] p-6">
           {blog?.map((blog: any) => (
-            <div key={blog._id} dangerouslySetInnerHTML={{ __html: blog.content }} />
+            <div key={blog._id} className="blog" dangerouslySetInnerHTML={{ __html: blog.content }} />
           ))}
         </div>
       </div>

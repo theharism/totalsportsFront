@@ -390,7 +390,7 @@ export default function Content({games, isCategory, blog}: {games: Game[], isCat
 
     {blog.length > 0 && <div className="rounded-lg bg-[#1a1a1a] p-6 mt-1">
       {blog?.map((blog: any) => (
-        <div key={blog._id} dangerouslySetInnerHTML={{ __html: blog.content }} />
+        <div key={blog._id} className="blog" dangerouslySetInnerHTML={{ __html: blog.content }} />
       ))}
     </div>}
     </>
