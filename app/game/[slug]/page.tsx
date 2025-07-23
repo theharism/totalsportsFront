@@ -23,7 +23,7 @@ export default async function GamePage({ params }: { params: { slug: string } })
     month: "2-digit",
     day: "2-digit",
   })
-
+console.log(game)
   return (
     <div className="min-h-screen bg-[#121212]">
       <Header />
@@ -68,7 +68,7 @@ export default async function GamePage({ params }: { params: { slug: string } })
           {/* Mobile Layout - Horizontal */}
           <div className="flex items-center justify-between gap-2 md:hidden">
             {/* Team One - Mobile */}
-            <div className="flex flex-1 flex-col items-center gap-2">
+            {game.type === "Teams" && <div className="flex flex-1 flex-col items-center gap-2">
               {game.team_one.logo ? (
                 <Image
                   src={game.team_one.logo}
@@ -83,7 +83,23 @@ export default async function GamePage({ params }: { params: { slug: string } })
                 </div>
               )}
               <h3 className="text-sm font-bold text-white truncate">{game.team_one.name}</h3>
-            </div>
+            </div>}
+            {game.type === "Events" && <div className="flex flex-1 flex-col items-center gap-2">
+              {game.event_logo ? (
+                <Image
+                  src={game.event_logo}
+                  alt={game.name}
+                  width={40}
+                  height={40}
+                  className="h-10 w-10 object-cover"
+                />
+              ) : (
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-800">
+                  <span className="text-sm font-bold">{game.name.charAt(0)}</span>
+                </div>
+              )}
+              <h3 className="text-sm font-bold text-white truncate">{game.name}</h3>
+            </div>}
 
             {/* Status - Mobile */}
             <div className="flex flex-col items-center px-2">
@@ -98,7 +114,7 @@ export default async function GamePage({ params }: { params: { slug: string } })
             </div>
 
             {/* Team Two - Mobile */}
-            <div className="flex flex-1 flex-col items-center justify-end gap-2">
+            {game.type === "Teams" && <div className="flex flex-1 flex-col items-center justify-end gap-2">
               {game.team_two.logo ? (
                 <Image
                   src={game.team_two.logo}
@@ -113,12 +129,12 @@ export default async function GamePage({ params }: { params: { slug: string } })
                 </div>
               )}
               <h3 className="text-sm font-bold text-white truncate text-right">{game.team_two.name}</h3>
-            </div>
+            </div>}
           </div>
 
           {/* Desktop Layout - Vertical */}
           <div className="hidden md:flex flex-col items-center justify-between gap-8 md:flex-row">
-            <div className="flex flex-1 flex-col items-center text-center">
+            {game.type === "Teams" && <div className="flex flex-1 flex-col items-center text-center">
               {game.team_one.logo ? (
                 <Image
                   src={game.team_one.logo}
@@ -133,8 +149,23 @@ export default async function GamePage({ params }: { params: { slug: string } })
                 </div>
               )}
               <h3 className="text-xl font-bold text-white">{game.team_one.name}</h3>
-            </div>
-
+            </div>}
+            {game.type === "Events" && <div className="flex flex-1 flex-col items-center gap-2">
+              {game.event_logo ? (
+                <Image
+                  src={game.event_logo}
+                  alt={game.name}
+                  width={40}
+                  height={40}
+                  className="h-10 w-10 object-cover"
+                />
+              ) : (
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-800">
+                  <span className="text-sm font-bold">{game.name.charAt(0)}</span>
+                </div>
+              )}
+              <h3 className="text-sm font-bold text-white truncate">{game.name}</h3>
+            </div>}
             <div className="flex flex-col items-center">
               <div className="mb-2 rounded-md bg-red-600 px-4 py-1 text-sm font-bold text-white">
                 {game.status === "Live" ? "LIVE" : game.status.toUpperCase()}
@@ -146,7 +177,7 @@ export default async function GamePage({ params }: { params: { slug: string } })
               </div>
             </div>
 
-            <div className="flex flex-1 flex-col items-center text-center">
+            {game.type === "Teams" && <div className="flex flex-1 flex-col items-center text-center">
               {game.team_two.logo ? (
                 <Image
                   src={game.team_two.logo}
@@ -161,7 +192,7 @@ export default async function GamePage({ params }: { params: { slug: string } })
                 </div>
               )}
               <h3 className="text-xl font-bold text-white">{game.team_two.name}</h3>
-            </div>
+            </div>}
           </div>
         </div>
 
