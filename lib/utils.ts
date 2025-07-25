@@ -37,67 +37,6 @@ export function handleServerError(error: unknown) {
   toast({ variant: 'destructive', title: errMsg })
 }
 
-// // Helper function to calculate remaining time
-// export function calculateRemainingTime(startDateStr: string, startTimeStr: string): string {
-//   const now = new Date();
-
-//   const combined = `${startDateStr} ${startTimeStr}`;
-//   const ukTime = dayjs.tz(combined, 'YYYY-MM-DD HH:mm', 'Europe/London');
-
-//   // Step 3: Convert to local time (e.g., Pakistan)
-//   const localTime = ukTime.tz(dayjs.tz.guess()); // User’s timezone
-
-//   console.log("Local Time:", localTime.format('YYYY-MM-DD hh:mm A'));
-
-//   // Parse the starting date and time
-//   const [startHour, startMinute] = startTimeStr.split(":").map(Number);
-//   const startDate = new Date(startDateStr);
-//   startDate.setHours(startHour, startMinute, 0, 0); // Set time on the date
-
-//   const isToday =
-//     now.toDateString() === startDate.toDateString();
-
-//   if (isToday) {
-//     const diffMs = startDate.getTime() - now.getTime();
-
-//     if (diffMs <= 0) {
-//       return "In Progress";
-//     }
-
-//     const diffMinutes = Math.floor(diffMs / 60000);
-//     const hours = Math.floor(diffMinutes / 60);
-//     const minutes = diffMinutes % 60;
-//     const str = `${hours}h ${minutes}m from now`;
-//     return str;
-//   } else {
-//     return startDate.toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-//   }
-// }
-
-// Helper function to calculate remaining time
-// export function calculateRemainingTime(startDateStr: string, startTimeStr: string): string {
-//   // Combine date and time in UK timezone
-//   const ukTime = dayjs.tz(`${startDateStr} ${startTimeStr}`, 'YYYY-MM-DD HH:mm', 'Europe/London');
-//   const now = dayjs.tz('Europe/London');
-
-//   const isToday = now.isSame(ukTime, 'day');
-
-//   if (isToday) {
-//     const diffMinutes = ukTime.diff(now, 'minute');
-
-//     if (diffMinutes <= 0) {
-//       return "In Progress";
-//     }
-
-//     const hours = Math.floor(diffMinutes / 60);
-//     const minutes = diffMinutes % 60;
-//     return `${hours}h ${minutes}m from now`;
-//   }
-
-//   // For future dates, return formatted local time
-//   return ukTime.format('MMMM D, YYYY • h:mm A');  
-// }
-
 export function calculateRemainingTime(startDateStr: string, startTimeStr: string, endDateStr?: string, endTimeStr?: string): string {
 
   if (!startDateStr || !startTimeStr) {

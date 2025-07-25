@@ -5,29 +5,17 @@ import { getTeams } from "@/lib/api"
 import TeamGames from "@/components/team-games"
 import _ from "lodash"
 import { getBlogByTeam } from "@/queries/getBlogByTeam"
-
-async function getTeamGames(teamId: string) {
-  try {
-    const response = await fetch(`/api/v1/games/team/${teamId}`)
-    const data = await response.json()
-    return data.success ? data.data : []
-  } catch (error) {
-    console.error("Error fetching team games:", error)
-    return []
-  }
-}
+import { getGamesByTeam } from "@/queries/getGamesList"
+import { getTeamBySlug } from "@/queries/getTeamBySlug"
 
 export default async function TeamPage({ params }: { params: { slug: string } }) {
-  // Fetch all teams to find the matching one
-  const teams = await getTeams()
-  const team = teams.find((t: any) => t.slug === params.slug)
 
-  if (!team) {
-    return <div>Team not found</div>
-  }
-
-  // Fetch games for this team
-  const games = await getTeamGames(team._id)
+  const { slug } = params;
+  const teamData = await getTeamBySlug(slug);
+  const gamesData = await getGamesByTeam(slug);
+  const games = _.get(gamesData, "data", []);
+  const team = _.get(teamData, "data", {});
+  
   const blogData = await getBlogByTeam(team._id);
   const blog = _.get(blogData, "data", []);
 

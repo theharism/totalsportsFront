@@ -23,7 +23,7 @@ export default async function GamePage({ params }: { params: { slug: string } })
     month: "2-digit",
     day: "2-digit",
   })
-console.log(game)
+
   return (
     <div className="min-h-screen bg-[#121212]">
       <Header />

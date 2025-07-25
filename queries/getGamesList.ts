@@ -11,6 +11,11 @@ export const getGamesByCategory = async (categorySlug: string) => {
   return data
 }
 
+export const getGamesByTeam = async (teamSlug: string) => {
+  const { data } = await axiosInstance.get<Game[]>('/api/v1/games/team/' + teamSlug)
+  return data
+}
+
 export const getGameById = async (id: string) => {
   const { data } = await axiosInstance.get<Game>(`/api/v1/games/${id}`)
   return data

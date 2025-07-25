@@ -225,14 +225,18 @@ export default function Content({games, isCategory, blog}: {games: Game[], isCat
                         </div>
                       </div>
 
-                      <div className="flex flex-1 flex-col px-4">
+                      {game?.type === 'Teams' ? <div className="flex flex-1 flex-col px-4">
                         <div className="text-sm text-gray-200">
                           {game?.team_one?.name}
                         </div>
                         <div className="text-sm text-gray-200">
                           {game?.team_two?.name}
                         </div>
-                      </div>
+                      </div> : <div className="flex flex-1 flex-col px-4">
+                        <div className="text-sm text-gray-200">
+                          {game?.name}
+                        </div>
+                      </div>}
 
                       <Link
                         href={`/game/${game.slug}`}
@@ -288,14 +292,18 @@ export default function Content({games, isCategory, blog}: {games: Game[], isCat
                         </div>
                       </div>
 
-                      <div className="flex flex-1 flex-col px-4">
+                      {game?.type === 'Teams' ? <div className="flex flex-1 flex-col px-4">
                         <div className="text-sm text-gray-200">
                           {game?.team_one?.name}
                         </div>
                         <div className="text-sm text-gray-200">
                           {game?.team_two?.name}
                         </div>
-                      </div>
+                      </div> : <div className="flex flex-1 flex-col px-4">
+                        <div className="text-sm text-gray-200">
+                          {game?.name}
+                        </div>
+                      </div>}
 
                       <Link
                         href={`/game/${game.slug}`}
