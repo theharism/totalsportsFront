@@ -7,6 +7,23 @@ import Link from "next/link"
 import Image from "next/image"
 import _ from "lodash"
 import { getBlogBySlug } from "@/queries/getBlogBySlug"
+import { TotalsportekMetadata } from "@/constants/metadata";
+
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const page = TotalsportekMetadata.categories.blog
+
+  if (!page) return {}
+
+  return {
+    title: page.title,
+    description: page.description,
+    openGraph: {
+      title: page.title,
+      description: page.description,
+      url: `https://totalsportek.com/${params.slug}`,
+    },
+  }
+}
 
 export default async function BlogPage({ params }: { params: { slug: string } }) {
   // Fetch blog data

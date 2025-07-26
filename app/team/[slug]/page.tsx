@@ -7,6 +7,23 @@ import _ from "lodash"
 import { getBlogByTeam } from "@/queries/getBlogByTeam"
 import { getGamesByTeam } from "@/queries/getGamesList"
 import { getTeamBySlug } from "@/queries/getTeamBySlug"
+import { TotalsportekMetadata } from "@/constants/metadata";
+
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const page = TotalsportekMetadata.teams[params.slug as keyof typeof TotalsportekMetadata.teams]
+
+  if (!page) return {}
+
+  return {
+    title: page.title,
+    description: page.description,
+    openGraph: {
+      title: page.title,
+      description: page.description,
+      url: `https://totalsportek.com/team/${params.slug}`,
+    },
+  }
+}
 
 export default async function TeamPage({ params }: { params: { slug: string } }) {
 

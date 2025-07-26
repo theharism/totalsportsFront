@@ -1,10 +1,10 @@
-import type { Metadata } from 'next'
 import './globals.css'
 
-export const metadata: Metadata = {
-  title: 'Totalsportek',
-  description: 'Totalsportek',
-  generator: 'Totalsportek',
+export const metadata = {
+  icons: {
+    icon: "/favicon.ico", // default icon
+    shortcut: "/favicon.ico", // for older browsers
+  },
 }
 
 export default function RootLayout({

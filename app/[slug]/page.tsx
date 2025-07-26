@@ -10,8 +10,24 @@ import { getTopCategories } from "@/queries/getTopCategoriesList"
 import { getTopTeams } from "@/queries/getTopTeamsList"
 import Footer from "@/components/footer"
 import { getAllBlogs } from "@/queries/getBlogsList"
-import { getBlogByCategory } from "@/queries/getBlogByCategory";
 import { getBlogByCategorySlug } from "@/queries/getBlogByCategorySlug";
+import { TotalsportekMetadata } from "@/constants/metadata";
+
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const page = TotalsportekMetadata.categories[params.slug as keyof typeof TotalsportekMetadata.categories]
+
+  if (!page) return {}
+
+  return {
+    title: page.title,
+    description: page.description,
+    openGraph: {
+      title: page.title,
+      description: page.description,
+      url: `https://totalsportek.com/${params.slug}`,
+    },
+  }
+}
 
 export default async function Home({ params }: { params: { slug: string } }) {
   let games = [];

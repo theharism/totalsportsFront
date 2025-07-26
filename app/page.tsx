@@ -11,6 +11,23 @@ import { getTopTeams } from "@/queries/getTopTeamsList"
 import Footer from "@/components/footer"
 import { getAllBlogs } from "@/queries/getBlogsList"
 import { getBlogByCategorySlug } from "@/queries/getBlogByCategorySlug";
+import { TotalsportekMetadata } from "@/constants/metadata";
+
+export async function generateMetadata() {
+  const page = TotalsportekMetadata.home
+
+  if (!page) return {}
+
+  return {
+    title: page.title,
+    description: page.description,
+    openGraph: {
+      title: page.title,
+      description: page.description,
+      url: `https://totalsportek.com/`,
+    },
+  }
+}
 
 export default async function Home() {
   const gamesData = await getGamesByCategory("All")
@@ -21,8 +38,11 @@ export default async function Home() {
   const blogsData = await getAllBlogs();
 
   const categories = _.get(categoriesData, "data", [])
+  console.log(categories)
   const teams = _.get(teamsData, "data", [])
+  console.log(teams)
   const blogs = _.get(blogsData, "data", [])
+  console.log(blogs)
   const blogData = await getBlogByCategorySlug("All");
   const blog = _.get(blogData, "data", []);  
 

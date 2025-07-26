@@ -8,6 +8,23 @@ import { getCategoryBySlug } from "@/queries/getCategoryBySlug";
 import _ from "lodash";
 import Image from "next/image";
 import { getBlogByCategory } from "@/queries/getBlogByCategory";
+import { TotalsportekMetadata } from "@/constants/metadata";
+
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const page = TotalsportekMetadata.leagues[params.slug as keyof typeof TotalsportekMetadata.leagues]
+
+  if (!page) return {}
+
+  return {
+    title: page.title,
+    description: page.description,
+    openGraph: {
+      title: page.title,
+      description: page.description,
+      url: `https://totalsportek.com/category/${params.slug}`,
+    },
+  }
+}
 
 export default async function CategoryPage({ params }: { params: { slug: string } }) {
   const { slug } = params;
