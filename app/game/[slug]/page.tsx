@@ -99,19 +99,23 @@ export default async function GamePage({ params }: { params: { slug: string } })
                 </div>
               )}
               <h3 className="text-sm font-bold text-white truncate">{game.name}</h3>
-            </div>}
-
-            {/* Status - Mobile */}
-            <div className="flex flex-col items-center px-2">
               <div className="mb-1 rounded-md bg-red-600 px-2 py-1 text-xs font-bold text-white">
                 {game.status === "Live" ? "LIVE" : game.status.toUpperCase()}
               </div>
               <div className="flex gap-1 text-lg font-bold text-white">
-                {/* <span>-</span>
-                <span>-</span> */}
                 <MatchCountdown startingDate={game.starting_date} startingTime={game.starting_time} />
               </div>
-            </div>
+            </div>}
+
+            {/* Status - Mobile */}
+            {game.type === "Teams" && <div className="flex flex-col items-center px-2">
+              <div className="mb-1 rounded-md bg-red-600 px-2 py-1 text-xs font-bold text-white">
+                {game.status === "Live" ? "LIVE" : game.status.toUpperCase()}
+              </div>
+              <div className="flex gap-1 text-lg font-bold text-white">
+                <MatchCountdown startingDate={game.starting_date} startingTime={game.starting_time} />
+              </div>
+            </div>}
 
             {/* Team Two - Mobile */}
             {game.type === "Teams" && <div className="flex flex-1 flex-col items-center justify-end gap-2">
@@ -165,17 +169,21 @@ export default async function GamePage({ params }: { params: { slug: string } })
                 </div>
               )}
               <h3 className="text-sm font-bold text-white truncate">{game.name}</h3>
+              <div className="mb-1 rounded-md bg-red-600 px-2 py-1 text-xs font-bold text-white">
+                {game.status === "Live" ? "LIVE" : game.status.toUpperCase()}
+              </div>
+              <div className="flex gap-1 text-lg font-bold text-white">
+                <MatchCountdown startingDate={game.starting_date} startingTime={game.starting_time} />
+              </div>
             </div>}
-            <div className="flex flex-col items-center">
+            {game.type === "Teams" && <div className="flex flex-col items-center">
               <div className="mb-2 rounded-md bg-red-600 px-4 py-1 text-sm font-bold text-white">
                 {game.status === "Live" ? "LIVE" : game.status.toUpperCase()}
               </div>
               <div className="flex gap-4 text-3xl font-bold text-white">
-                {/* <span>-</span>
-                <span>-</span> */}
                 <MatchCountdown startingDate={game.starting_date} startingTime={game.starting_time} />
               </div>
-            </div>
+            </div>}
 
             {game.type === "Teams" && <div className="flex flex-1 flex-col items-center text-center">
               {game.team_two.logo ? (

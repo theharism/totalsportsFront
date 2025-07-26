@@ -6,7 +6,9 @@ import { useIsMobile } from "@/hooks/use-mobile"
 
 interface Stream {
   _id: string
+  name: string
   streaming_link: string
+  iframe_link: string
   slug: string
   channel: string
   ads: number
@@ -32,7 +34,7 @@ export default function StreamsTable({ streams }: { streams: Stream[] }) {
           {streams.map((stream) => (
             <tr key={stream._id} className="border-b border-gray-800">
               <td className="py-4 text-sm text-gray-300">
-                {stream.streaming_link.replace(/https?:\/\//, "")}
+                {stream.name}
               </td>
               <td className="py-4">
                 <span className="rounded bg-gray-800 px-3 py-1 text-sm text-white">{stream.channel}</span>
@@ -51,7 +53,7 @@ export default function StreamsTable({ streams }: { streams: Stream[] }) {
                 <Button
                   variant="default"
                   className="bg-blue-600 hover:bg-blue-700"
-                  onClick={() => window.open(`${stream.streaming_link}/stream/${stream.slug}`, "_blank")}
+                  onClick={() => {stream?.iframe_link ? window.open(`${stream.streaming_link}/stream/${stream.slug}`, "_blank") : window.open(stream.streaming_link, "_blank")}}
                 >
                   <ExternalLink className="mr-2 h-4 w-4" />
                   Watch
