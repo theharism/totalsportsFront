@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Default config for the axios instance
 const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PROXY_URL || 'https://dashgenius.space',
+  baseURL: "/api/proxy",
   headers: {
     'Content-Type': 'application/json',
   },
