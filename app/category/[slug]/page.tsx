@@ -15,6 +15,15 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
   if (!page) return {}
 
+  const categoryData = await getCategoryBySlug(params.slug);
+  const category = _.get(categoryData, "data", {});
+  const blogData = await getBlogByCategory(category._id);
+  const blog = _.get(blogData, "data", []);
+  
+  const publishedTime = blog?.createdAt
+    ? new Date(blog.createdAt).toISOString()
+    : new Date().toISOString(); // fallback
+
   return {
     title: page.title,
     description: page.description,
@@ -22,6 +31,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       title: page.title,
       description: page.description,
       url: `https://totalsportek.com/category/${params.slug}`,
+    },
+    other: {
+      'article:published_time': publishedTime,
     },
   }
 }

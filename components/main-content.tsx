@@ -147,13 +147,26 @@ export default function Content({games, isCategory, blog}: {games: Game[], isCat
                           <div className="h-full w-1 rounded-full bg-orange-500"></div>
                         </div>
                         <div>
-                          <div className="text-sm text-orange-500">
+                          {/* <div className="text-sm text-orange-500">
                             {calculateRemainingTime(
                                   game.starting_date,
                                   game.starting_time,
                                   game.ending_date,
                                   game.ending_time
                                 )}
+                          </div> */}
+                           <div className="text-sm text-orange-500">
+                              <time
+                                dateTime={`${game.starting_date}T${game.starting_time}`}
+                                title={`Starts: ${game.starting_date} ${game.starting_time} - Ends: ${game.ending_date} ${game.ending_time}`}
+                              >
+                                {calculateRemainingTime(
+                                  game.starting_date,
+                                  game.starting_time,
+                                  game?.ending_date,
+                                  game?.ending_time
+                                )}
+                              </time>
                           </div>
                         </div>
                       </div>
@@ -355,13 +368,30 @@ export default function Content({games, isCategory, blog}: {games: Game[], isCat
                             <div className="h-full w-1 rounded-full bg-orange-500"></div>
                           </div>
                           <div>
-                            <div className="text-sm text-orange-500">
+                            {/* <div className="text-sm text-orange-500">
                               {calculateRemainingTime(
                                     game.starting_date,
                                     game.starting_time,
                                     game.ending_date,
                                     game.ending_time
                                   )}
+                            </div> */}
+                            <div className="text-sm text-orange-500">
+                              {/* {game.status === "Finished" ? (
+                                "Finished"
+                              ) : ( */}
+                                <time
+                                  dateTime={`${game.starting_date}T${game.starting_time}`}
+                                  title={`Starts: ${game.starting_date} ${game.starting_time} - Ends: ${game.ending_date} ${game.ending_time}`}
+                                >
+                                  {calculateRemainingTime(
+                                    game.starting_date,
+                                    game.starting_time,
+                                    game?.ending_date,
+                                    game?.ending_time
+                                  )}
+                                </time>
+                              {/* )} */}
                             </div>
                           </div>
                         </div>

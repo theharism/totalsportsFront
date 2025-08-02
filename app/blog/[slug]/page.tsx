@@ -14,13 +14,25 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
   if (!page) return {}
 
+  const blogData = await getBlogBySlug(params.slug)
+  const blog = _.get(blogData, "data", {})
+
+  const publishedTime = blog?.createdAt
+    ? new Date(blog.createdAt).toISOString()
+    : new Date().toISOString(); // fallback
+
   return {
     title: page.title,
     description: page.description,
     openGraph: {
       title: page.title,
       description: page.description,
-      url: `https://totalsportek.com/${params.slug}`,
+      url: `https://totalsportek.com/blog/${params.slug}`,
+      type: 'article',
+      publishedTime,
+    },
+    other: {
+      'article:published_time': publishedTime,
     },
   }
 }
@@ -29,7 +41,6 @@ export default async function BlogPage({ params }: { params: { slug: string } })
   // Fetch blog data
   const blogData = await getBlogBySlug(params.slug)
   const blog = _.get(blogData, "data", {})
-
   // Fetch related blogs for the sidebar
 //   const relatedBlogsData = await getRelatedBlogs(blog.category?._id)
 //   const relatedBlogs = _.get(relatedBlogsData, "data", [])

@@ -38,11 +38,8 @@ export default async function Home() {
   const blogsData = await getAllBlogs();
 
   const categories = _.get(categoriesData, "data", [])
-  console.log(categories)
   const teams = _.get(teamsData, "data", [])
-  console.log(teams)
   const blogs = _.get(blogsData, "data", [])
-  console.log(blogs)
   const blogData = await getBlogByCategorySlug("All");
   const blog = _.get(blogData, "data", []);  
 

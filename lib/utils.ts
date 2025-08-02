@@ -63,7 +63,7 @@ export function calculateRemainingTime(startDateStr: string, startTimeStr: strin
 
     const hours = Math.floor(diffMinutes / 60);
     const minutes = diffMinutes % 60;
-    return `${hours}h ${minutes}m from now`;
+    return `${hours}hr and ${minutes}min from now`;
   }
 
   // For future UK dates
