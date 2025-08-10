@@ -10,28 +10,11 @@ import Image from "next/image";
 import { web_sports, mobile_sports } from "@/lib/constants";
 import { useIsMobile } from "@/hooks/use-mobile";
 
-export default function Content({games, isCategory, blog}: {games: Game[], isCategory: boolean, blog: any}) {
+export default function Content({games, isCategory}: {games: Game[], isCategory: boolean}) {
   const [activeTab, setActiveTab] = useState("streams");
   const [groupedGames, setGroupedGames] = useState<any[]>([]);
   const [sports, setSports] = useState(web_sports)
   const isMobile = useIsMobile()
-
-  useEffect(() => {
-    const handleClick = () => {
-      if(isMobile){
-        window.open("https://reffpa.com/L?tag=d_4594826m_27409c_&site=4594826&ad=27409", "_blank");
-      }
-      else {
-        window.open("https://reffpa.com/L?tag=d_4594826m_97c_&site=4594826&ad=97", "_blank");
-      }
-    };
-
-    document.addEventListener("click", handleClick);
-
-    return () => {
-      document.removeEventListener("click", handleClick);
-    };
-  }, []);
 
   useEffect(() => {
     let adClickCount = 0;
@@ -156,7 +139,7 @@ export default function Content({games, isCategory, blog}: {games: Game[], isCat
                 </svg>
               ) : (
                 <Image
-                  src={`/uploads/${sport.icon}`}
+                  src={sport.icon}
                   alt={sport.name}
                   width={24}
                   height={24}
@@ -509,12 +492,6 @@ export default function Content({games, isCategory, blog}: {games: Game[], isCat
         </div>
       )}
     </div>
-
-    {blog.length > 0 && <div className="rounded-lg bg-[#1a1a1a] p-6 mt-1">
-      {blog?.map((blog: any) => (
-        <div key={blog._id} className="blog" dangerouslySetInnerHTML={{ __html: blog.content }} />
-      ))}
-    </div>}
     </>
   );
 }

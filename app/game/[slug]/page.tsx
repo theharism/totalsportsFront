@@ -209,7 +209,7 @@ export default async function GamePage({ params }: { params: { slug: string } })
           <h3 className="mb-6 text-xl font-bold text-white">Live Streams</h3>
           <StreamsTable streams={streams} />
           <div className="py-5">
-            <h1 className="text-4xl mb-1 font-bold text-white">TotalSportek {game.name}</h1>
+            <h1 className="text-4xl mb-1 font-bold text-white">Totalsportek {game.name}</h1>
             <h3 className="text-xl mb-1 font-medium text-white">Watch {game.name} at UK time on {game.starting_date} {game.starting_time}</h3>
             <h3 className="text-xl mb-1 font-medium text-white">Watch {game.name} live stream Online</h3>
           </div>

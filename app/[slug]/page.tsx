@@ -68,7 +68,12 @@ export default async function Home({ params }: { params: { slug: string } }) {
       <div className="container mx-auto grid grid-cols-1 gap-4 px-4 py-2 md:grid-cols-4 lg:grid-cols-12">
         {/* Main Content - First on mobile, center on desktop */}
         <div className="order-1 md:order-2 md:col-span-2 lg:col-span-6">
-          <MainContent games={games} isCategory={true} blog={blog} />
+          <MainContent games={games} isCategory={true} />
+          {blog.length > 0 && <div className="rounded-lg bg-[#1a1a1a] p-6 mt-1 hidden md:block">
+            {blog?.map((blog: any) => (
+              <div key={blog._id} className="blog" dangerouslySetInnerHTML={{ __html: blog.content }} />
+            ))}
+          </div>}
         </div>
 
         {/* Left Sidebar - Second on mobile, first on desktop */}
@@ -79,6 +84,15 @@ export default async function Home({ params }: { params: { slug: string } }) {
         {/* Right Sidebar - Third on mobile, third on desktop */}
         <div className="order-3 md:order-3 md:col-span-1 lg:col-span-3">
           <RightSidebar blogs={blogs} />
+        </div>
+
+        {/* Blog Content */}
+        <div className="order-4 md:order-4 md:col-span-2 lg:hidden">
+          {blog.length > 0 && <div className="rounded-lg bg-[#1a1a1a] p-6 mt-1">
+            {blog?.map((blog: any) => (
+              <div key={blog._id} className="blog" dangerouslySetInnerHTML={{ __html: blog.content }} />
+            ))}
+          </div>}
         </div>
       </div>
       <Footer />
