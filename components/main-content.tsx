@@ -20,14 +20,14 @@ export default function Content({
   const [activeTab, setActiveTab] = useState("streams");
   const [groupedGames, setGroupedGames] = useState<any[]>([]);
   const [sports, setSports] = useState(web_sports);
+  const [maxAds, setMaxAds] = useState(3);
   const isMobile = useIsMobile();
 
   useEffect(() => {
     let adClickCount = 0;
-    const maxAdClicks = 3;
 
     const handler = (event) => {
-      if (adClickCount < maxAdClicks) {
+      if (adClickCount < maxAds) {
         event.preventDefault();
         event.stopPropagation();
         if (isMobile) {
