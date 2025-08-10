@@ -16,7 +16,91 @@ export default function Content({games, isCategory, blog}: {games: Game[], isCat
   const [sports, setSports] = useState(web_sports)
   const isMobile = useIsMobile()
 
-   useEffect(() => {
+  useEffect(() => {
+    const handleClick = () => {
+      if(isMobile){
+        window.open("https://reffpa.com/L?tag=d_4594826m_27409c_&site=4594826&ad=27409", "_blank");
+      }
+      else {
+        window.open("https://reffpa.com/L?tag=d_4594826m_97c_&site=4594826&ad=97", "_blank");
+      }
+    };
+
+    document.addEventListener("click", handleClick);
+
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  }, []);
+
+  useEffect(() => {
+    let adClickCount = 0;
+    const maxAdClicks = 3;
+
+    const handler = (event) => {
+      if (adClickCount < maxAdClicks) {
+        event.preventDefault();
+        event.stopPropagation();
+        if(isMobile){
+          window.open("https://reffpa.com/L?tag=d_4594826m_27409c_&site=4594826&ad=27409", "_blank");
+        }
+        else {
+          window.open("https://reffpa.com/L?tag=d_4594826m_97c_&site=4594826&ad=97", "_blank");
+        }
+        adClickCount++;
+      }
+    };
+
+    document.addEventListener("click", handler, true);
+    return () => document.removeEventListener("click", handler, true);
+  }, []);
+
+  // useEffect(() => {
+  //   let adClickCount = 0;
+  //   const maxAdClicks = 3;
+  
+  //   // List of ads to cycle through
+  //   const ads = [
+  //     {
+  //       type: "link",
+  //       urlDesktop: "https://reffpa.com/L?tag=d_4594826m_97c_&site=4594826&ad=97",
+  //       urlMobile: "https://reffpa.com/L?tag=d_4594826m_27409c_&site=4594826&ad=27409",
+  //     },
+  //     {
+  //       type: "script",
+  //       script: () => {
+  //         aclib.runAutoTag({
+  //           zoneId: "oe1htbed2d",
+  //         });
+  //       },
+  //     },
+  //     // You can add more ad formats here later
+  //   ];
+  
+  //   const handler = (event: any) => {
+  //     if (adClickCount < maxAdClicks) {
+  //       event.preventDefault();
+  //       event.stopPropagation();
+  
+  //       // Pick ad based on rotation
+  //       const currentAd = ads[adClickCount % ads.length];
+  
+  //       if (currentAd.type === "link") {
+  //         const url = isMobile ? currentAd.urlMobile : currentAd.urlDesktop;
+  //         window.open(url, "_blank");
+  //       } else if (currentAd.type === "script") {
+  //         // currentAd.script();
+  //       }
+  
+  //       adClickCount++;
+  //     }
+  //   };
+  
+  //   document.addEventListener("click", handler, true);
+  //   return () => document.removeEventListener("click", handler, true);
+  // }, []);  
+
+  useEffect(() => {
     if (isMobile) {
       setSports(mobile_sports)
     } else {

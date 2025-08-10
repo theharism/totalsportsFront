@@ -14,8 +14,20 @@ export default function RootLayout({
 }>) {
   return (
       <html lang="en">
+        <head>
+          <meta name="admaven-placement" content="BqdU5qdaH" />
+        </head>
         <body>
             {children}
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  aclib.runAutoTag({
+                    zoneId: 'oe1htbed2d',
+                  });
+                `,
+              }}
+            />
         </body>
       </html>
   )
