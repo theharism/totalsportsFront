@@ -273,6 +273,8 @@ export default function Content({
                             <Link
                               href={`/game/${game.slug}`}
                               className="rounded-md p-2 hover:bg-[#333333]"
+                              target="_blank"
+                              rel="noopener noreferrer"
                             >
                               <ExternalLink className="h-5 w-5 text-gray-400" />
                             </Link>
