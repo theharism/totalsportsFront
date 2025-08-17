@@ -27,19 +27,19 @@ export default function Footer() {
   ]
 
   const liveStreamLinks = [
-    { name: "Football  Live Streams", href: "https://totalsportek.world/soccer" },
-    { name: "Cricket Live Streams", href: "https://totalsportek.world/cricket" },
-    { name: "NBA Live Streams", href: "https://totalsportek.world/nba" },
-    { name: "F1 Live Streams", href: "https://totalsportek.world/f1" },
-    { name: "Tennis Live Streams", href: "https://totalsportek.world/tennis" },
-    { name: "WWE Live Streams", href: "https://totalsportek.world/wwe" },
-    { name: "UFC Live Streams", href: "https://totalsportek.world/ufc" },
-    { name: "Boxing Live Streams", href: "https://totalsportek.world/boxing" },
-    { name: "NFL Live Streams", href: "https://totalsportek.world/nfl" },
-    { name: "Rugby Live Streams", href: "https://totalsportek.world/rugby" },
-    { name: "MLB Live Streams", href: "https://totalsportek.world/mlb" },
-    { name: "MotoGP Live Streams", href: "https://totalsportek.world/motogp" },
-    { name: "NHL Live Streams", href: "https://totalsportek.world/nhl" },
+    { name: "Football  Live Streams", href: "https://totalsportek.world/streams/soccer" },
+    { name: "Cricket Live Streams", href: "https://totalsportek.world/streams/cricket" },
+    { name: "NBA Live Streams", href: "https://totalsportek.world/streams/nba" },
+    { name: "F1 Live Streams", href: "https://totalsportek.world/streams/f1" },
+    { name: "Tennis Live Streams", href: "https://totalsportek.world/streams/tennis" },
+    { name: "WWE Live Streams", href: "https://totalsportek.world/streams/wwe" },
+    { name: "UFC Live Streams", href: "https://totalsportek.world/streams/ufc" },
+    { name: "Boxing Live Streams", href: "https://totalsportek.world/streams/boxing" },
+    { name: "NFL Live Streams", href: "https://totalsportek.world/streams/nfl" },
+    { name: "Rugby Live Streams", href: "https://totalsportek.world/streams/rugby" },
+    { name: "MLB Live Streams", href: "https://totalsportek.world/streams/mlb" },
+    { name: "MotoGP Live Streams", href: "https://totalsportek.world/streams/motogp" },
+    { name: "NHL Live Streams", href: "https://totalsportek.world/streams/nhl" },
   ]
 
   // const liveStreamLinks = [
