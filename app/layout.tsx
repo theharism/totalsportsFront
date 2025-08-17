@@ -15,6 +15,7 @@ export default function RootLayout({
   return (
       <html lang="en">
         <head>
+          <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
           <meta name="admaven-placement" content="BqdU5qdaH" />
         </head>
         <body>
