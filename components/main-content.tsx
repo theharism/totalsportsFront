@@ -23,31 +23,31 @@ export default function Content({
   const [maxAds, setMaxAds] = useState(3);
   const isMobile = useIsMobile();
 
-  useEffect(() => {
-    let adClickCount = 0;
+  // useEffect(() => {
+  //   let adClickCount = 0;
 
-    const handler = (event) => {
-      if (adClickCount < maxAds) {
-        event.preventDefault();
-        event.stopPropagation();
-        if (isMobile) {
-          window.open(
-            "https://reffpa.com/L?tag=d_4594826m_27409c_&site=4594826&ad=27409",
-            "_blank"
-          );
-        } else {
-          window.open(
-            "https://reffpa.com/L?tag=d_4594826m_97c_&site=4594826&ad=97",
-            "_blank"
-          );
-        }
-        adClickCount++;
-      }
-    };
+  //   const handler = (event) => {
+  //     if (adClickCount < maxAds) {
+  //       event.preventDefault();
+  //       event.stopPropagation();
+  //       if (isMobile) {
+  //         window.open(
+  //           "https://reffpa.com/L?tag=d_4594826m_27409c_&site=4594826&ad=27409",
+  //           "_blank"
+  //         );
+  //       } else {
+  //         window.open(
+  //           "https://reffpa.com/L?tag=d_4594826m_97c_&site=4594826&ad=97",
+  //           "_blank"
+  //         );
+  //       }
+  //       adClickCount++;
+  //     }
+  //   };
 
-    document.addEventListener("click", handler, true);
-    return () => document.removeEventListener("click", handler, true);
-  }, []);
+  //   document.addEventListener("click", handler, true);
+  //   return () => document.removeEventListener("click", handler, true);
+  // }, []);
 
   // useEffect(() => {
   //   let adClickCount = 0;
