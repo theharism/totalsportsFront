@@ -234,6 +234,7 @@ export default function Content({
                                     title={`Starts: ${game.starting_date} ${game.starting_time} - Ends: ${game.ending_date} ${game.ending_time}`}
                                   >
                                     {calculateRemainingTime(
+                                      game.status,
                                       game.starting_date,
                                       game.starting_time,
                                       game?.ending_date,
@@ -313,6 +314,7 @@ export default function Content({
                                   title={`Starts: ${game.starting_date} ${game.starting_time} - Ends: ${game.ending_date} ${game.ending_time}`}
                                 >
                                   {calculateRemainingTime(
+                                    game.status,
                                     game.starting_date,
                                     game.starting_time,
                                     game?.ending_date,
@@ -564,6 +566,7 @@ export default function Content({
                                   title={`Starts: ${game.starting_date} ${game.starting_time} - Ends: ${game.ending_date} ${game.ending_time}`}
                                 >
                                   {calculateRemainingTime(
+                                    game.status,
                                     game.starting_date,
                                     game.starting_time,
                                     game?.ending_date,

@@ -37,7 +37,7 @@ export function handleServerError(error: unknown) {
   toast({ variant: 'destructive', title: errMsg })
 }
 
-export function calculateRemainingTime(startDateStr: string, startTimeStr: string, endDateStr?: string, endTimeStr?: string): string {
+export function calculateRemainingTime(gameStatus: string, startDateStr: string, startTimeStr: string, endDateStr?: string, endTimeStr?: string): string {
 
   if (!startDateStr || !startTimeStr) {
     console.warn("Missing date or time:", { startDateStr, startTimeStr });
@@ -51,10 +51,8 @@ export function calculateRemainingTime(startDateStr: string, startTimeStr: strin
   }
   const now = dayjs().tz('Etc/GMT'); 
 
-  const isToday = now.isSame(startingTime, 'day');
-  const isBetween = now.isAfter(startingTime) && endingTime && now.isBefore(endingTime);
   
-  if (isToday || isBetween) {
+  if (gameStatus === "Live" || gameStatus === "Upcoming") {
     const diffMinutes = startingTime.diff(now, 'minute');
 
     if (diffMinutes <= 0) {
