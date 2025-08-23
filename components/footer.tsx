@@ -149,10 +149,6 @@ export default function Footer() {
           <p className="text-gray-400 text-xs">
             Disclaimer: None of the videos is hosted by this site. Streams hosted on external sites like Youtube etc are provided with links here. This site is not responsible for the legality of the content. For legal issues, please contact appropriate media file owners/hosters.
           </p>
-
-          <p className="text-gray-400 text-xs">
-            ADSTERRA verification code: Vd3n41F
-          </p>
         </div>
       </div>
     </footer>
