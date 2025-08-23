@@ -104,7 +104,7 @@ export default function Content({
   }, [isMobile]);
 
   useEffect(()=>{
-    const importantGames = games.filter((game: Game) => game.important);
+    const importantGames = games.filter((game: Game) => game.important && (game.status === "Live" || game.status === "Upcoming"));
     setImportantGames(importantGames);
   },[games])
 
