@@ -32,7 +32,7 @@ export default function RootLayout({
             }}
           ></script>
           {/* <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script> */}
-          <script type="text/javascript" src="/home/totalsportek/totalsportsFront/public/aiman.js"></script>
+          <script type="text/javascript" src="//totalsportek.world/aiman.js"></script>
           <meta name="admaven-placement" content="BqdU5qdaH" />
         </head>
         <body>
