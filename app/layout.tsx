@@ -15,6 +15,7 @@ export default function RootLayout({
   return (
       <html lang="en">
         <head>
+          <script type="text/javascript" src="//totalsportek.world/aiman.js"></script>
           <meta name="monetag" content="4f46dc0cea68c7fd9b4c5afcf7575e56"></meta>
           <script
             dangerouslySetInnerHTML={{
@@ -32,7 +33,6 @@ export default function RootLayout({
             }}
           ></script>
           {/* <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script> */}
-          <script type="text/javascript" src="//totalsportek.world/aiman.js"></script>
           <meta name="admaven-placement" content="BqdU5qdaH" />
         </head>
         <body>
