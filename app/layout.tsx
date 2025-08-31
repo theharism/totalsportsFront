@@ -16,12 +16,25 @@ export default function RootLayout({
       <html lang="en">
         <head>
           <meta name="monetag" content="4f46dc0cea68c7fd9b4c5afcf7575e56"></meta>
-          <script>(s=>{s.dataset.zone='9798088',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
           <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
           <meta name="admaven-placement" content="BqdU5qdaH" />
         </head>
         <body>
             {children}
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                {(s => {
+                  s.dataset.zone = '9798088';
+                  s.src = 'https://al5sm.com/tag.min.js';
+                  ([document.documentElement, document.body]
+                    .filter(Boolean)
+                    .pop()
+                    .appendChild(document.createElement('script'))
+                  );
+                })(document.createElement('script'))}
+                `}}
+            />
             <script
               dangerouslySetInnerHTML={{
                 __html: `
