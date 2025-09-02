@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Calendar, Clock, Trophy, Star } from "lucide-react";
 import Link from "next/link";
 import { calculateRemainingTime, groupGamesByCategory } from "@/lib/utils";
 import { Game } from "@/types/games";
@@ -22,78 +22,15 @@ export default function Content({
   const [importantGames, setImportantGames] = useState<any[]>([]);
   const [sports, setSports] = useState(web_sports);
   const [maxAds, setMaxAds] = useState(3);
+  const [isLoading, setIsLoading] = useState(true);
   const isMobile = useIsMobile();
 
-  // useEffect(() => {
-  //   let adClickCount = 0;
+  const [mounted, setMounted] = useState(false);
+  const [timeMap, setTimeMap] = useState<Record<string, string>>({});
 
-  //   const handler = (event) => {
-  //     if (adClickCount < maxAds) {
-  //       event.preventDefault();
-  //       event.stopPropagation();
-  //       if (isMobile) {
-  //         window.open(
-  //           "https://reffpa.com/L?tag=d_4594826m_27409c_&site=4594826&ad=27409",
-  //           "_blank"
-  //         );
-  //       } else {
-  //         window.open(
-  //           "https://reffpa.com/L?tag=d_4594826m_97c_&site=4594826&ad=97",
-  //           "_blank"
-  //         );
-  //       }
-  //       adClickCount++;
-  //     }
-  //   };
-
-  //   document.addEventListener("click", handler, true);
-  //   return () => document.removeEventListener("click", handler, true);
-  // }, []);
-
-  // useEffect(() => {
-  //   let adClickCount = 0;
-  //   const maxAdClicks = 3;
-
-  //   // List of ads to cycle through
-  //   const ads = [
-  //     {
-  //       type: "link",
-  //       urlDesktop: "https://reffpa.com/L?tag=d_4594826m_97c_&site=4594826&ad=97",
-  //       urlMobile: "https://reffpa.com/L?tag=d_4594826m_27409c_&site=4594826&ad=27409",
-  //     },
-  //     {
-  //       type: "script",
-  //       script: () => {
-  //         aclib.runAutoTag({
-  //           zoneId: "oe1htbed2d",
-  //         });
-  //       },
-  //     },
-  //     // You can add more ad formats here later
-  //   ];
-
-  //   const handler = (event: any) => {
-  //     if (adClickCount < maxAdClicks) {
-  //       event.preventDefault();
-  //       event.stopPropagation();
-
-  //       // Pick ad based on rotation
-  //       const currentAd = ads[adClickCount % ads.length];
-
-  //       if (currentAd.type === "link") {
-  //         const url = isMobile ? currentAd.urlMobile : currentAd.urlDesktop;
-  //         window.open(url, "_blank");
-  //       } else if (currentAd.type === "script") {
-  //         // currentAd.script();
-  //       }
-
-  //       adClickCount++;
-  //     }
-  //   };
-
-  //   document.addEventListener("click", handler, true);
-  //   return () => document.removeEventListener("click", handler, true);
-  // }, []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (isMobile) {
@@ -103,13 +40,17 @@ export default function Content({
     }
   }, [isMobile]);
 
-  useEffect(()=>{
-    const importantGames = games.filter((game: Game) => game.important && (game.status === "Live" || game.status === "Upcoming"));
+  useEffect(() => {
+    const importantGames = games.filter(
+      (game: Game) =>
+        game.important && (game.status === "Live" || game.status === "Upcoming")
+    );
     setImportantGames(importantGames);
-  },[games])
+  }, [games]);
 
   useEffect(() => {
-    let filtered = [];
+    setIsLoading(true);
+    let filtered: Game[] = [];
 
     if (!isCategory) {
       switch (activeTab) {
@@ -130,482 +71,386 @@ export default function Content({
     } else {
       filtered = games;
     }
-    // Group the filtered games by category
+
     const grouped = groupGamesByCategory(filtered);
     setGroupedGames(grouped);
-  }, [activeTab, games]);
+    setIsLoading(false);
+  }, [activeTab, games, isCategory]);
+
+  useEffect(() => {
+    if (!mounted) return;
+
+    const computeAll = () => {
+      const map: Record<string, string> = {};
+      for (const g of games) {
+        const key = (g && (g._id ?? g.slug)) || JSON.stringify(g);
+        try {
+          map[key] = calculateRemainingTime(
+            (g as any).status,
+            (g as any).starting_date,
+            (g as any).starting_time,
+            (g as any).ending_date,
+            (g as any).ending_time
+          );
+        } catch (e) {
+          map[key] = "";
+        }
+      }
+      setTimeMap(map);
+    };
+
+    computeAll();
+    const t = setInterval(computeAll, 30000);
+    return () => clearInterval(t);
+  }, [mounted, games]);
 
   const handleTabChange = (value: string) => {
     setActiveTab(value);
   };
 
-  return (
-    <>
-      <div className="flex gap-4 overflow-x-auto mt-2 pb-2 scrollbar-hide sm:hidden">
-        <div className="flex gap-4 min-w-max">
-          {sports?.map((sport) => (
-            <Link
-              key={sport.name}
-              href={sport.href}
-              className="flex flex-col items-center gap-1 min-w-[60px] hover:opacity-75 transition-opacity"
-              title={sport.name}
-            >
-              <div className="w-8 h-8 flex items-center justify-center overflow-hidden">
-                {sport.icon === "blog" && isMobile ? (
-                  <svg
-                    className="w-5 h-5 text-orange-500"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case "Live":
+        return <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />;
+      case "Upcoming":
+        return <Clock className="w-4 h-4 text-blue-400" />;
+      case "Scheduled":
+        return <Calendar className="w-4 h-4 text-purple-400" />;
+      case "Finished":
+        return <Trophy className="w-4 h-4 text-green-400" />;
+      default:
+        return null;
+    }
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "Live":
+        return "text-red-400 bg-red-400/10";
+      case "Upcoming":
+        return "text-blue-400 bg-blue-400/10";
+      case "Scheduled":
+        return "text-purple-400 bg-purple-400/10";
+      case "Finished":
+        return "text-green-400 bg-green-400/10";
+      default:
+        return "text-orange-400 bg-orange-400/10";
+    }
+  };
+
+  // Function to check if a game is F1 or MotoGP
+  const isF1OrMotoGP = (game: any) => {
+    const categoryName = game.category?.name?.toLowerCase() || '';
+    const gameName = game.name?.toLowerCase() || '';
+    return categoryName.includes('f1') || categoryName.includes('formula 1') || 
+           categoryName.includes('moto') || categoryName.includes('motogp') ||
+           gameName.includes('f1') || gameName.includes('formula 1') ||
+           gameName.includes('moto') || gameName.includes('motogp');
+  };
+
+  const GameCard = ({ game, isImportant = false }: { game: any; isImportant?: boolean }) => {
+    const key = (game && (game._id ?? game.slug)) || JSON.stringify(game);
+    const timeText = mounted ? timeMap[key] ?? "" : "";
+    const showVS = game?.type === "Teams" && !isF1OrMotoGP(game);
+    
+    return (
+      <div
+        className={`group relative overflow-hidden rounded-xl bg-gradient-to-r from-[#1a1a1a] to-[#222222] border ${
+          isImportant
+            ? "border-orange-400/30 shadow-lg shadow-orange-400/10"
+            : "border-gray-800/50 hover:border-gray-700/50"
+        } transition-all duration-300 hover:shadow-xl hover:scale-[1.02]`}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+        <div className="relative p-4">
+          <div className="grid grid-cols-3 items-center gap-4">
+            {/* Status and Time Column */}
+            <div className="flex items-center gap-3">
+            <div className="flex flex-col items-start gap-2">
+                <div className={`px-3 py-1 rounded-full text-xs font-medium flex items-center gap-2 ${getStatusColor(game.status)}`}>
+                  {getStatusIcon(game.status)}
+                  <span className="hidden sm:inline">
+                    {game.status === "Live" ? "LIVE" : game.status?.toUpperCase()}
+                  </span>
+                </div>
+                <div className="text-xs text-gray-400">
+                  <time
+                    dateTime={`${game.starting_date}T${game.starting_time}`}
+                    title={`Starts: ${game.starting_date} ${game.starting_time} - Ends: ${game.ending_date} ${game.ending_time}`}
                   >
-                    <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" />
-                  </svg>
-                ) : (
-                  <Image
-                    src={sport.icon}
-                    alt={sport.name}
-                    width={24}
-                    height={24}
-                    className="object-contain"
-                  />
-                )}
+                    {timeText}
+                  </time>
+                </div>
               </div>
-              <span className="text-xs text-gray-300 text-center leading-tight">
-                {sport.name}
-              </span>
-            </Link>
-          ))}
+            </div>
+
+            {/* Teams/Game Name Column */}
+            <div className="flex-1">
+              {game?.type === "Teams" ? (
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium text-gray-100 truncate">
+                      {game?.team_one?.name}
+                    </span>
+                    {showVS && (
+                      <span className="text-xs text-red-400 font-bold px-2">VS</span>
+                    )}
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium text-gray-100 truncate">
+                      {game?.team_two?.name}
+                    </span>
+                    {!showVS && game.status === "Live" && (
+                      <span className="text-xs text-red-400 font-bold px-2">LIVE</span>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <div className="text-sm font-medium text-gray-100">
+                  {game?.name}
+                </div>
+              )}
+            </div>
+
+            {/* Action Column */}
+            <div className="flex items-center justify-end gap-2">
+              {isImportant && (
+                <Star className="w-4 h-4 text-orange-400 fill-orange-400" />
+              )}
+              <Link
+                href={`/game/${game.slug}`}
+                className="flex items-center justify-center w-10 h-10 rounded-lg bg-gray-800/50 hover:bg-orange-500/20 border border-gray-700/50 hover:border-orange-400/50 transition-all duration-200 group/link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <ExternalLink className="w-4 h-4 text-gray-400 group-hover/link:text-orange-400 transition-colors duration-200" />
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="rounded-lg bg-[#1a1a1a] p-4">
+    );
+  };
+
+  const CategorySection = ({ category }: { category: any }) => (
+    <div className="space-y-4">
+      <div className="flex items-center gap-3 pb-3 border-b border-gradient-to-r from-gray-800 via-gray-700 to-gray-800">
+        <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-[#FFFFFF] border border-gray-700/50">
+          <Image
+            src={category.logo}
+            alt={category.name}
+            width={20}
+            height={20}
+            className="object-contain"
+          />
+        </div>
+        <div>
+          <h3 className="text-lg font-semibold text-white">
+            {category.name}
+          </h3>
+          <p className="text-xs text-gray-400">
+            {category.games.length} {category.games.length === 1 ? 'game' : 'games'}
+          </p>
+        </div>
+      </div>
+
+      <div className="space-y-3">
+        {category.games.map((game: any) => (
+          <GameCard key={game._id} game={game} />
+        ))}
+      </div>
+    </div>
+  );
+
+  const LoadingSkeleton = () => (
+    <div className="space-y-6">
+      {[1, 2, 3].map((i) => (
+        <div key={i} className="space-y-3">
+          <div className="flex items-center gap-3 pb-3">
+            <div className="w-10 h-10 bg-gray-800 rounded-lg animate-pulse" />
+            <div className="space-y-1">
+              <div className="w-32 h-4 bg-gray-800 rounded animate-pulse" />
+              <div className="w-20 h-3 bg-gray-800 rounded animate-pulse" />
+            </div>
+          </div>
+          {[1, 2].map((j) => (
+            <div key={j} className="h-20 bg-gray-800 rounded-xl animate-pulse" />
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+
+  const EmptyState = ({ message, icon: Icon }: { message: string; icon: any }) => (
+    <div className="flex flex-col items-center justify-center h-64 text-gray-400 space-y-4">
+      <div className="w-16 h-16 rounded-full bg-gray-800/50 flex items-center justify-center">
+        <Icon className="w-8 h-8" />
+      </div>
+      <p className="text-lg font-medium">{message}</p>
+    </div>
+  );
+
+  return (
+    <>
+      {mounted && (
+        <div className="flex gap-4 overflow-x-auto mt-2 pb-4 scrollbar-hide sm:hidden">
+          <div className="flex gap-4 min-w-max px-1">
+            {sports?.map((sport) => (
+              <Link
+                key={sport.name}
+                href={sport.href}
+                className="flex flex-col items-center gap-2 min-w-[70px] p-3 rounded-xl bg-gray-800/30 hover:bg-gray-700/50 border border-gray-800/50 hover:border-gray-600/50 transition-all duration-200"
+                title={sport.name}
+              >
+                <div className="w-8 h-8 flex items-center justify-center overflow-hidden">
+                  {sport.icon === "blog" && isMobile ? (
+                    <svg className="w-5 h-5 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" />
+                    </svg>
+                  ) : (
+                    <Image
+                      src={sport.icon}
+                      alt={sport.name}
+                      width={24}
+                      height={24}
+                      className="object-contain"
+                    />
+                  )}
+                </div>
+                <span className="text-xs text-gray-300 text-center leading-tight font-medium">
+                  {sport.name}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className="rounded-2xl bg-gradient-to-b from-[#1a1a1a] to-[#161616] border border-gray-800/50 shadow-2xl">
         {!isCategory && (
           <Tabs
-            defaultValue="streams"
             value={activeTab}
             onValueChange={handleTabChange}
             className="w-full"
           >
-            <TabsList className="mb-4 grid w-full grid-cols-7 bg-[#121212]">
-              <div className="col-span-2" />
-              <div className="col-span-3 flex justify-center space-x-4">
+            <div className="p-6 border-b border-gray-800/50">
+              <TabsList className="grid w-full max-w-md mx-auto grid-cols-3 bg-gray-900/50 rounded-xl border border-gray-800/50">
                 <TabsTrigger
                   value="results"
-                  className="data-[state=active]:bg-[#00222e] data-[state=active]:text-white text-white data-[state=active]:rounded-3xl"
+                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-orange-600 data-[state=active]:text-white text-gray-400 font-medium rounded-lg transition-all duration-200"
                 >
                   RESULTS
                 </TabsTrigger>
                 <TabsTrigger
                   value="streams"
-                  className="data-[state=active]:bg-[#00222e] data-[state=active]:text-white text-white data-[state=active]:rounded-3xl"
+                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-orange-600 data-[state=active]:text-white text-gray-400 font-medium rounded-lg transition-all duration-200"
                 >
-                  STREAMS
+                  LIVE
                 </TabsTrigger>
                 <TabsTrigger
                   value="schedule"
-                  className="data-[state=active]:bg-[#00222e] data-[state=active]:text-white text-white data-[state=active]:rounded-3xl"
+                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-orange-600 data-[state=active]:text-white text-gray-400 font-medium rounded-lg transition-all duration-200"
                 >
                   SCHEDULE
                 </TabsTrigger>
-              </div>
-              <div className="col-span-2" />
-            </TabsList>
+              </TabsList>
+            </div>
 
-            <TabsContent value="streams" className="space-y-6">
-              {importantGames.length > 0 && (
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 border-b border-gray-800 pb-2">
-                      <h3 className="text-lg font-medium text-white">
-                        Important Games
-                      </h3>
-                    </div>
-                        {importantGames.map((game: any) => (
-                          <div
-                            key={game._id}
-                            className="grid grid-cols-3 items-center gap-4 rounded-md bg-[#222222] p-3"
-                          >
-                            {/* Column 1: Left bar + time */}
-                            <div className="flex items-center">
-                              <div className="flex h-full flex-col justify-center">
-                                <div className="h-full w-1 rounded-full bg-orange-500"></div>
-                              </div>
-                              <div>
-                                <div className="text-sm text-orange-500">
-                                  <time
-                                    dateTime={`${game.starting_date}T${game.starting_time}`}
-                                    title={`Starts: ${game.starting_date} ${game.starting_time} - Ends: ${game.ending_date} ${game.ending_time}`}
-                                  >
-                                    {calculateRemainingTime(
-                                      game.status,
-                                      game.starting_date,
-                                      game.starting_time,
-                                      game?.ending_date,
-                                      game?.ending_time
-                                    )}
-                                  </time>
-                                </div>
-                              </div>
-                            </div>
-
-                            {/* Column 2: Team or Game name */}
-                            {game?.type === "Teams" ? (
-                              <div className="flex flex-col">
-                                <div className="text-sm text-gray-200">
-                                  {game?.team_one?.name}
-                                </div>
-                                <div className="text-sm text-gray-200">
-                                  {game?.team_two?.name}
-                                </div>
-                              </div>
-                            ) : (
-                              <div className="flex flex-col">
-                                <div className="text-sm text-gray-200">
-                                  {game?.name}
-                                </div>
-                              </div>
-                            )}
-
-                            {/* Column 3: Link */}
-                            <div className="flex justify-end">
-                              <Link
-                                href={`/game/${game.slug}`}
-                                className="rounded-md p-2 hover:bg-[#333333]"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                <ExternalLink className="h-5 w-5 text-gray-400" />
-                              </Link>
-                            </div>
-                          </div>
-                        ))}
-                  </div>
-              )}
-              {groupedGames.length > 0 ? (
-                groupedGames.map((category) => (
-                  <div key={category.id} className="space-y-2">
-                    <div className="flex items-center gap-2 border-b border-gray-800 pb-2">
-                      <div className="flex h-6 w-6 items-center justify-center">
-                        <Image
-                          src={category.logo}
-                          alt={category.name}
-                          width={15}
-                          height={15}
-                          className="h-6 w-6 object-cover"
-                        />
+            <div className="p-6">
+              <TabsContent value="streams" className="space-y-8 mt-0">
+                {importantGames.length > 0 && (
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3 pb-3 border-b border-gradient-to-r from-orange-400/20 via-orange-300/10 to-orange-400/20">
+                      <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-r from-orange-500/20 to-orange-600/20 border border-orange-400/30">
+                        <Star className="w-5 h-5 text-orange-400" />
                       </div>
-                      <h3 className="text-lg font-medium text-white">
-                        {category.name}
-                      </h3>
+                      <div>
+                        <h3 className="text-lg font-bold text-white">
+                          Featured Games
+                        </h3>
+                        <p className="text-xs text-gray-400">
+                          Don't miss these important matches
+                        </p>
+                      </div>
                     </div>
-
-                    <div className="space-y-2">
-                      {category.games.map((game: any) => (
-                        <div
-                          key={game._id}
-                          className="grid grid-cols-3 items-center gap-4 rounded-md bg-[#222222] p-3"
-                        >
-                          {/* Column 1: Left bar + time */}
-                          <div className="flex items-center">
-                            <div className="flex h-full flex-col justify-center">
-                              <div className="h-full w-1 rounded-full bg-orange-500"></div>
-                            </div>
-                            <div>
-                              <div className="text-sm text-orange-500">
-                                <time
-                                  dateTime={`${game.starting_date}T${game.starting_time}`}
-                                  title={`Starts: ${game.starting_date} ${game.starting_time} - Ends: ${game.ending_date} ${game.ending_time}`}
-                                >
-                                  {calculateRemainingTime(
-                                    game.status,
-                                    game.starting_date,
-                                    game.starting_time,
-                                    game?.ending_date,
-                                    game?.ending_time
-                                  )}
-                                </time>
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Column 2: Team or Game name */}
-                          {game?.type === "Teams" ? (
-                            <div className="flex flex-col">
-                              <div className="text-sm text-gray-200">
-                                {game?.team_one?.name}
-                              </div>
-                              <div className="text-sm text-gray-200">
-                                {game?.team_two?.name}
-                              </div>
-                            </div>
-                          ) : (
-                            <div className="flex flex-col">
-                              <div className="text-sm text-gray-200">
-                                {game?.name}
-                              </div>
-                            </div>
-                          )}
-
-                          {/* Column 3: Link */}
-                          <div className="flex justify-end">
-                            <Link
-                              href={`/game/${game.slug}`}
-                              className="rounded-md p-2 hover:bg-[#333333]"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <ExternalLink className="h-5 w-5 text-gray-400" />
-                            </Link>
-                          </div>
-                        </div>
+                    <div className="space-y-3">
+                      {importantGames.map((game: any) => (
+                        <GameCard key={game._id} game={game} isImportant={true} />
                       ))}
                     </div>
                   </div>
-                ))
-              ) : (
-                <div className="flex h-40 items-center justify-center text-gray-400">
-                  No live streams available at the moment
-                </div>
-              )}
-            </TabsContent>
+                )}
 
-            <TabsContent value="schedule" className="space-y-6">
-              {groupedGames.length > 0 ? (
-                groupedGames.map((category) => (
-                  <div key={category.id} className="space-y-2">
-                    <div className="flex items-center gap-2 border-b border-gray-800 pb-2">
-                      <div className="flex h-6 w-6 items-center justify-center">
-                        <Image
-                          src={category.logo}
-                          alt={category.name}
-                          width={15}
-                          height={15}
-                          className="h-6 w-6 object-cover"
-                        />
-                      </div>
-                      <h3 className="text-lg font-medium text-white">
-                        {category.name}
-                      </h3>
-                    </div>
-
-                    <div className="space-y-2">
-                      {category.games.map((game: any) => (
-                        <div
-                          key={game._id}
-                          className="flex items-center justify-between rounded-md bg-[#222222] p-3"
-                        >
-                          <div className="flex items-center gap-3">
-                            <div className="flex h-full flex-col justify-center">
-                              <div className="h-full w-1 rounded-full bg-orange-500"></div>
-                            </div>
-                            <div>
-                              <div className="text-sm text-orange-500">
-                                {new Date(
-                                  `${game.starting_date.split("T")[0]}T${
-                                    game.starting_time
-                                  }`
-                                ).toLocaleString()}
-                              </div>
-                            </div>
-                          </div>
-
-                          {game?.type === "Teams" ? (
-                            <div className="flex flex-1 flex-col px-4">
-                              <div className="text-sm text-gray-200">
-                                {game?.team_one?.name}
-                              </div>
-                              <div className="text-sm text-gray-200">
-                                {game?.team_two?.name}
-                              </div>
-                            </div>
-                          ) : (
-                            <div className="flex flex-1 flex-col px-4">
-                              <div className="text-sm text-gray-200">
-                                {game?.name}
-                              </div>
-                            </div>
-                          )}
-
-                          <Link
-                            href={`/game/${game.slug}`}
-                            className="rounded-md p-2 hover:bg-[#333333]"
-                            target="_blank"
-                            rel="noopener noreferrer" 
-                          >
-                            <ExternalLink className="h-5 w-5 text-gray-400" />
-                          </Link>
-                        </div>
-                      ))}
-                    </div>
+                {isLoading ? (
+                  <LoadingSkeleton />
+                ) : groupedGames.length > 0 ? (
+                  <div className="space-y-8">
+                    {groupedGames.map((category) => (
+                      <CategorySection key={category.id} category={category} />
+                    ))}
                   </div>
-                ))
-              ) : (
-                <div className="flex h-40 items-center justify-center text-gray-400">
-                  No upcoming matches scheduled
-                </div>
-              )}
-            </TabsContent>
+                ) : (
+                  <EmptyState
+                    message="No live streams available at the moment"
+                    icon={Clock}
+                  />
+                )}
+              </TabsContent>
 
-            <TabsContent value="results" className="space-y-6">
-              {groupedGames.length > 0 ? (
-                groupedGames.map((category) => (
-                  <div key={category.id} className="space-y-2">
-                    <div className="flex items-center gap-2 border-b border-gray-800 pb-2">
-                      <div className="flex h-6 w-6 items-center justify-center">
-                        <Image
-                          src={category.logo}
-                          alt={category.name}
-                          width={15}
-                          height={15}
-                          className="h-6 w-6 object-cover"
-                        />
-                      </div>
-                      <h3 className="text-lg font-medium text-white">
-                        {category.name}
-                      </h3>
-                    </div>
-
-                    <div className="space-y-2">
-                      {category.games.map((game: any) => (
-                        <div
-                          key={game._id}
-                          className="flex items-center justify-between rounded-md bg-[#222222] p-3"
-                        >
-                          <div className="flex items-center gap-3">
-                            <div className="flex h-full flex-col justify-center">
-                              <div className="h-full w-1 rounded-full bg-orange-500"></div>
-                            </div>
-                            <div>
-                              <div className="text-sm text-orange-500">
-                                Finished
-                              </div>
-                            </div>
-                          </div>
-
-                          {game?.type === "Teams" ? (
-                            <div className="flex flex-1 flex-col px-4">
-                              <div className="text-sm text-gray-200">
-                                {game?.team_one?.name}
-                              </div>
-                              <div className="text-sm text-gray-200">
-                                {game?.team_two?.name}
-                              </div>
-                            </div>
-                          ) : (
-                            <div className="flex flex-1 flex-col px-4">
-                              <div className="text-sm text-gray-200">
-                                {game?.name}
-                              </div>
-                            </div>
-                          )}
-
-                          <Link
-                            href={`/game/${game.slug}`}
-                            className="rounded-md p-2 hover:bg-[#333333]"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <ExternalLink className="h-5 w-5 text-gray-400" />
-                          </Link>
-                        </div>
-                      ))}
-                    </div>
+              <TabsContent value="schedule" className="space-y-8 mt-0">
+                {isLoading ? (
+                  <LoadingSkeleton />
+                ) : groupedGames.length > 0 ? (
+                  <div className="space-y-8">
+                    {groupedGames.map((category) => (
+                      <CategorySection key={category.id} category={category} />
+                    ))}
                   </div>
-                ))
-              ) : (
-                <div className="flex h-40 items-center justify-center text-gray-400">
-                  No results available
-                </div>
-              )}
-            </TabsContent>
+                ) : (
+                  <EmptyState
+                    message="No upcoming matches scheduled"
+                    icon={Calendar}
+                  />
+                )}
+              </TabsContent>
+
+              <TabsContent value="results" className="space-y-8 mt-0">
+                {isLoading ? (
+                  <LoadingSkeleton />
+                ) : groupedGames.length > 0 ? (
+                  <div className="space-y-8">
+                    {groupedGames.map((category) => (
+                      <CategorySection key={category.id} category={category} />
+                    ))}
+                  </div>
+                ) : (
+                  <EmptyState
+                    message="No results available"
+                    icon={Trophy}
+                  />
+                )}
+              </TabsContent>
+            </div>
           </Tabs>
         )}
+
         {isCategory && (
-          <div className="w-full">
-            <div className="space-y-6">
-              {groupedGames.length > 0 ? (
-                groupedGames.map((category) => (
-                  <div key={category.id} className="space-y-2">
-                    <div className="flex items-center gap-2 border-b border-gray-800 pb-2">
-                      <div className="flex h-6 w-6 items-center justify-center">
-                        <Image
-                          src={category.logo}
-                          alt={category.name}
-                          width={15}
-                          height={15}
-                          className="h-6 w-6 object-cover"
-                        />
-                      </div>
-                      <h3 className="text-lg font-medium text-white">
-                        {category.name}
-                      </h3>
-                    </div>
-
-                    <div className="space-y-2">
-                      {category.games.map((game: any) => (
-                        <div
-                          key={game._id}
-                          className="flex items-center justify-between rounded-md bg-[#222222] p-3"
-                        >
-                          <div className="flex items-center gap-3">
-                            <div className="flex h-full flex-col justify-center">
-                              <div className="h-full w-1 rounded-full bg-orange-500"></div>
-                            </div>
-                            <div>
-                              {/* <div className="text-sm text-orange-500">
-                              {calculateRemainingTime(
-                                    game.starting_date,
-                                    game.starting_time,
-                                    game.ending_date,
-                                    game.ending_time
-                                  )}
-                            </div> */}
-                              <div className="text-sm text-orange-500">
-                                {/* {game.status === "Finished" ? (
-                                "Finished"
-                              ) : ( */}
-                                <time
-                                  dateTime={`${game.starting_date}T${game.starting_time}`}
-                                  title={`Starts: ${game.starting_date} ${game.starting_time} - Ends: ${game.ending_date} ${game.ending_time}`}
-                                >
-                                  {calculateRemainingTime(
-                                    game.status,
-                                    game.starting_date,
-                                    game.starting_time,
-                                    game?.ending_date,
-                                    game?.ending_time
-                                  )}
-                                </time>
-                                {/* )} */}
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="flex flex-1 flex-col px-4">
-                            <div className="text-sm text-gray-200">
-                              {game?.team_one?.name}
-                            </div>
-                            <div className="text-sm text-gray-200">
-                              {game?.team_two?.name}
-                            </div>
-                          </div>
-
-                          <Link
-                            href={`/game/${game.slug}`}
-                            className="rounded-md p-2 hover:bg-[#333333]"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <ExternalLink className="h-5 w-5 text-gray-400" />
-                          </Link>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <div className="flex h-40 items-center justify-center text-gray-400">
-                  No live streams available at the moment
-                </div>
-              )}
-            </div>
+          <div className="p-6">
+            {isLoading ? (
+              <LoadingSkeleton />
+            ) : groupedGames.length > 0 ? (
+              <div className="space-y-8">
+                {groupedGames.map((category) => (
+                  <CategorySection key={category.id} category={category} />
+                ))}
+              </div>
+            ) : (
+              <EmptyState
+                message="No games available at the moment"
+                icon={Clock}
+              />
+            )}
           </div>
         )}
       </div>

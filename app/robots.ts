@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://totalsportek.world/sitemap.xml",
+    sitemap: "https://totalsportek.team/sitemap.xml",
   };
 }

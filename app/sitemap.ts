@@ -5,7 +5,7 @@ import { getAllGames } from '@/queries/getGamesList'
 import { getAllTeams } from '@/queries/getTeamsList'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://totalsportek.world'
+  const baseUrl = 'https://totalsportek.team'
 
   const blogs = await getAllBlogs()
   const categories = await getAllCategories()
