@@ -25,27 +25,27 @@ const nextConfig = {
     return [
       {
         source: '/api/v1/:path*',
-        destination: 'https://dashgenius.space/api/v1/:path*',
+        destination: 'https://api.totalsportek.team/api/v1/:path*',
       },
       {
         source: '/uploads/:path*',
-        destination: 'https://dashgenius.space/uploads/:path*',
+        destination: 'https://api.totalsportek.team/uploads/:path*',
       },
       {
         source: '/team/uploads/:path*',
-        destination: 'https://dashgenius.space/uploads/:path*',
+        destination: 'https://api.totalsportek.team/uploads/:path*',
       },
       {
         source: '/game/uploads/:path*',
-        destination: 'https://dashgenius.space/uploads/:path*',
+        destination: 'https://api.totalsportek.team/uploads/:path*',
       },
       {
         source: '/category/uploads/:path*',
-        destination: 'https://dashgenius.space/uploads/:path*',
+        destination: 'https://api.totalsportek.team/uploads/:path*',
       },
       {
         source: '/blog/uploads/:path*',
-        destination: 'https://dashgenius.space/uploads/:path*',
+        destination: 'https://api.totalsportek.team/uploads/:path*',
       },
     ];
   },

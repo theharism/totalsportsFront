@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Default config for the axios instance
 const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PROXY_URL || 'https://dashgenius.space',
+  baseURL: process.env.NEXT_PROXY_URL || 'https://api.totalsportek.team',
   headers: {
     'Content-Type': 'application/json',
   },
