@@ -62,15 +62,10 @@ export default async function BlogPage({ params }: { params: { slug: string } })
           <span className="text-gray-400">{blog.title}</span>
         </div>
 
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+        <div className="grid grid-cols-1">
           {/* Main Content */}
-          <div className="lg:col-span-2">
-            <BlogContent blog={blog} />
-          </div>
-
-          {/* Sidebar */}
           <div className="lg:col-span-1">
-            <RightSidebar blogs={[]} />
+            <BlogContent blog={blog} />
           </div>
         </div>
       </div>
