@@ -520,7 +520,7 @@ export default function Content({
         {isCategory && (
           <div className="w-full">
             <div className="space-y-6">
-              {groupedGames.length > 0 ? (
+            {groupedGames.length > 0 ? (
                 groupedGames.map((category) => (
                   <div key={category.id} className="space-y-2">
                     <div className="flex items-center gap-2 border-b border-gray-800 pb-2">
@@ -542,25 +542,15 @@ export default function Content({
                       {category.games.map((game: any) => (
                         <div
                           key={game._id}
-                          className="flex items-center justify-between rounded-md bg-[#222222] p-3"
+                          className="grid grid-cols-3 items-center gap-4 rounded-md bg-[#222222] p-3"
                         >
-                          <div className="flex items-center gap-3">
+                          {/* Column 1: Left bar + time */}
+                          <div className="flex items-center">
                             <div className="flex h-full flex-col justify-center">
                               <div className="h-full w-1 rounded-full bg-orange-500"></div>
                             </div>
                             <div>
-                              {/* <div className="text-sm text-orange-500">
-                              {calculateRemainingTime(
-                                    game.starting_date,
-                                    game.starting_time,
-                                    game.ending_date,
-                                    game.ending_time
-                                  )}
-                            </div> */}
                               <div className="text-sm text-orange-500">
-                                {/* {game.status === "Finished" ? (
-                                "Finished"
-                              ) : ( */}
                                 <time
                                   dateTime={`${game.starting_date}T${game.starting_time}`}
                                   title={`Starts: ${game.starting_date} ${game.starting_time} - Ends: ${game.ending_date} ${game.ending_time}`}
@@ -573,28 +563,39 @@ export default function Content({
                                     game?.ending_time
                                   )}
                                 </time>
-                                {/* )} */}
                               </div>
                             </div>
                           </div>
 
-                          <div className="flex flex-1 flex-col px-4">
-                            <div className="text-sm text-gray-200">
-                              {game?.team_one?.name}
+                          {/* Column 2: Team or Game name */}
+                          {game?.type === "Teams" ? (
+                            <div className="flex flex-col">
+                              <div className="text-sm text-gray-200">
+                                {game?.team_one?.name}
+                              </div>
+                              <div className="text-sm text-gray-200">
+                                {game?.team_two?.name}
+                              </div>
                             </div>
-                            <div className="text-sm text-gray-200">
-                              {game?.team_two?.name}
+                          ) : (
+                            <div className="flex flex-col">
+                              <div className="text-sm text-gray-200">
+                                {game?.name}
+                              </div>
                             </div>
-                          </div>
+                          )}
 
-                          <Link
-                            href={`/game/${game.slug}`}
-                            className="rounded-md p-2 hover:bg-[#333333]"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <ExternalLink className="h-5 w-5 text-gray-400" />
-                          </Link>
+                          {/* Column 3: Link */}
+                          <div className="flex justify-end">
+                            <Link
+                              href={`/game/${game.slug}`}
+                              className="rounded-md p-2 hover:bg-[#333333]"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <ExternalLink className="h-5 w-5 text-gray-400" />
+                            </Link>
+                          </div>
                         </div>
                       ))}
                     </div>
