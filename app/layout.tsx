@@ -16,6 +16,7 @@ export default function RootLayout({
       <html lang="en">
         <head>
           <script type="text/javascript" src="//totalsportek.world/aiman.js"></script>
+          <link rel="canonical" href="https://totalsportek.world/" />
           <meta name="monetag" content="4f46dc0cea68c7fd9b4c5afcf7575e56"></meta>
           <script
             dangerouslySetInnerHTML={{
