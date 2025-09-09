@@ -1,7 +1,7 @@
 export const TotalsportekMetadata = {
     home: {
         title:"Totalsportek - Live Sport Streams",
-        description: "Watch free live sports streams on Totalsportek. Stream soccer, F1, UFC, NBA, cricket, boxing, tennis, MotoGP, NFL, MLB and more with 50+ reliable links per match"
+        description: "Watch free live sports streams on Totalsportek. Stream Soccer, F1, NBA, UFC, cricket, boxing and more with 50+ reliable links for every match."
     },
     categories: {
         soccer: {
