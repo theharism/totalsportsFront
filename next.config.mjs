@@ -48,6 +48,10 @@ const nextConfig = {
         destination: 'https://dashgenius.space/uploads/:path*',
       },
       {
+        source: '/streams/uploads/:path*',
+        destination: 'https://dashgenius.space/uploads/:path*',
+      },
+      {
         source: '/soccer',
         destination: '/streams/soccer',
       },
