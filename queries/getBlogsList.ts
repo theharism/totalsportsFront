@@ -4,7 +4,7 @@ export const getAllBlogs = async () => {
   const { data } = await axiosInstance.get('/api/v1/blogs', {
     params: {
       type: 'Main',
-      limit: 2,
+      limit: 8,
     },
   })
   return data

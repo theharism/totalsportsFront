@@ -2,7 +2,6 @@ export const revalidate = 60;
 
 import Header from "@/components/header"
 import Footer from "@/components/footer"
-import RightSidebar from "@/components/right-sidebar"
 import Link from "next/link"
 import Image from "next/image"
 import _ from "lodash"
