@@ -24,77 +24,6 @@ export default function Content({
   const [maxAds, setMaxAds] = useState(3);
   const isMobile = useIsMobile();
 
-  // useEffect(() => {
-  //   let adClickCount = 0;
-
-  //   const handler = (event) => {
-  //     if (adClickCount < maxAds) {
-  //       event.preventDefault();
-  //       event.stopPropagation();
-  //       if (isMobile) {
-  //         window.open(
-  //           "https://reffpa.com/L?tag=d_4594826m_27409c_&site=4594826&ad=27409",
-  //           "_blank"
-  //         );
-  //       } else {
-  //         window.open(
-  //           "https://reffpa.com/L?tag=d_4594826m_97c_&site=4594826&ad=97",
-  //           "_blank"
-  //         );
-  //       }
-  //       adClickCount++;
-  //     }
-  //   };
-
-  //   document.addEventListener("click", handler, true);
-  //   return () => document.removeEventListener("click", handler, true);
-  // }, []);
-
-  // useEffect(() => {
-  //   let adClickCount = 0;
-  //   const maxAdClicks = 3;
-
-  //   // List of ads to cycle through
-  //   const ads = [
-  //     {
-  //       type: "link",
-  //       urlDesktop: "https://reffpa.com/L?tag=d_4594826m_97c_&site=4594826&ad=97",
-  //       urlMobile: "https://reffpa.com/L?tag=d_4594826m_27409c_&site=4594826&ad=27409",
-  //     },
-  //     {
-  //       type: "script",
-  //       script: () => {
-  //         aclib.runAutoTag({
-  //           zoneId: "oe1htbed2d",
-  //         });
-  //       },
-  //     },
-  //     // You can add more ad formats here later
-  //   ];
-
-  //   const handler = (event: any) => {
-  //     if (adClickCount < maxAdClicks) {
-  //       event.preventDefault();
-  //       event.stopPropagation();
-
-  //       // Pick ad based on rotation
-  //       const currentAd = ads[adClickCount % ads.length];
-
-  //       if (currentAd.type === "link") {
-  //         const url = isMobile ? currentAd.urlMobile : currentAd.urlDesktop;
-  //         window.open(url, "_blank");
-  //       } else if (currentAd.type === "script") {
-  //         // currentAd.script();
-  //       }
-
-  //       adClickCount++;
-  //     }
-  //   };
-
-  //   document.addEventListener("click", handler, true);
-  //   return () => document.removeEventListener("click", handler, true);
-  // }, []);
-
   useEffect(() => {
     if (isMobile) {
       setSports(mobile_sports);
@@ -132,6 +61,7 @@ export default function Content({
     }
     // Group the filtered games by category
     const grouped = groupGamesByCategory(filtered);
+    console.log(grouped)
     setGroupedGames(grouped);
   }, [activeTab, games]);
 
@@ -248,18 +178,45 @@ export default function Content({
                             {/* Column 2: Team or Game name */}
                             {game?.type === "Teams" ? (
                               <div className="flex flex-col">
-                                <div className="text-sm text-gray-200">
-                                  {game?.team_one?.name}
+                                <div className="flex items-center">
+                                  <Image
+                                    src={game?.team_one?.logo}
+                                    alt={game?.team_one?.name}
+                                    width={10}
+                                    height={10}
+                                    className="h-4 w-4 object-cover mr-2"
+                                  />
+                                  <div className="text-sm text-gray-200">
+                                    {game?.team_one?.name}
+                                  </div>
                                 </div>
-                                <div className="text-sm text-gray-200">
-                                  {game?.team_two?.name}
+                                <div className="flex items-center">
+                                  <Image
+                                    src={game?.team_two?.logo}
+                                    alt={game?.team_two?.name}
+                                    width={10}
+                                    height={10}
+                                  className="h-4 w-4 object-cover mr-2"
+                                  />
+                                  <div className="text-sm text-gray-200">
+                                    {game?.team_two?.name}
+                                  </div>
                                 </div>
                               </div>
                             ) : (
                               <div className="flex flex-col">
+                                <div className="flex items-center">
+                                <Image
+                                  src={game?.event_logo}
+                                  alt={game?.name}
+                                  width={10}
+                                  height={10}
+                                  className="h-4 w-4 object-cover mr-2"
+                                />
                                 <div className="text-sm text-gray-200">
                                   {game?.name}
                                 </div>
+                              </div>
                               </div>
                             )}
 
@@ -328,17 +285,44 @@ export default function Content({
                           {/* Column 2: Team or Game name */}
                           {game?.type === "Teams" ? (
                             <div className="flex flex-col">
-                              <div className="text-sm text-gray-200">
-                                {game?.team_one?.name}
+                              <div className="flex items-center">
+                                <Image
+                                  src={game?.team_one?.logo}
+                                  alt={game?.team_one?.name}
+                                  width={10}
+                                  height={10}
+                                  className="h-4 w-4 object-cover mr-2"
+                                />
+                                <div className="text-sm text-gray-200">
+                                  {game?.team_one?.name}
+                                </div>
                               </div>
-                              <div className="text-sm text-gray-200">
-                                {game?.team_two?.name}
+                              <div className="flex items-center">
+                                <Image
+                                  src={game?.team_two?.logo}
+                                  alt={game?.team_two?.name}
+                                  width={10}
+                                  height={10}
+                                className="h-4 w-4 object-cover mr-2"
+                                />
+                                <div className="text-sm text-gray-200">
+                                  {game?.team_two?.name}
+                                </div>
                               </div>
                             </div>
                           ) : (
                             <div className="flex flex-col">
-                              <div className="text-sm text-gray-200">
-                                {game?.name}
+                              <div className="flex items-center">
+                                <Image
+                                  src={game?.event_logo}
+                                  alt={game?.name}
+                                  width={10}
+                                  height={10}
+                                  className="h-4 w-4 object-cover mr-2"
+                                />
+                                <div className="text-sm text-gray-200">
+                                  {game?.name}
+                                </div>
                               </div>
                             </div>
                           )}
@@ -408,17 +392,44 @@ export default function Content({
 
                           {game?.type === "Teams" ? (
                             <div className="flex flex-1 flex-col px-4">
-                              <div className="text-sm text-gray-200">
-                                {game?.team_one?.name}
+                              <div className="flex items-center">
+                                <Image
+                                  src={game?.team_one?.logo}
+                                  alt={game?.team_one?.name}
+                                  width={10}
+                                  height={10}
+                                  className="h-4 w-4 object-cover mr-2"
+                                />
+                                <div className="text-sm text-gray-200">
+                                  {game?.team_one?.name}
+                                </div>
                               </div>
-                              <div className="text-sm text-gray-200">
-                                {game?.team_two?.name}
+                              <div className="flex items-center">
+                                <Image
+                                  src={game?.team_two?.logo}
+                                  alt={game?.team_two?.name}
+                                  width={10}
+                                  height={10}
+                                className="h-4 w-4 object-cover mr-2"
+                                />
+                                <div className="text-sm text-gray-200">
+                                  {game?.team_two?.name}
+                                </div>
                               </div>
                             </div>
                           ) : (
                             <div className="flex flex-1 flex-col px-4">
-                              <div className="text-sm text-gray-200">
-                                {game?.name}
+                              <div className="flex items-center">
+                                <Image
+                                  src={game?.event_logo}
+                                  alt={game?.name}
+                                  width={10}
+                                  height={10}
+                                  className="h-4 w-4 object-cover mr-2"
+                                />
+                                <div className="text-sm text-gray-200">
+                                  {game?.name}
+                                </div>
                               </div>
                             </div>
                           )}
@@ -481,17 +492,44 @@ export default function Content({
 
                           {game?.type === "Teams" ? (
                             <div className="flex flex-1 flex-col px-4">
-                              <div className="text-sm text-gray-200">
-                                {game?.team_one?.name}
+                              <div className="flex items-center">
+                                <Image
+                                  src={game?.team_one?.logo}
+                                  alt={game?.team_one?.name}
+                                  width={10}
+                                  height={10}
+                                  className="h-4 w-4 object-cover mr-2"
+                                />
+                                <div className="text-sm text-gray-200">
+                                  {game?.team_one?.name}
+                                </div>
                               </div>
-                              <div className="text-sm text-gray-200">
-                                {game?.team_two?.name}
+                              <div className="flex items-center">
+                                <Image
+                                  src={game?.team_two?.logo}
+                                  alt={game?.team_two?.name}
+                                  width={10}
+                                  height={10}
+                                className="h-4 w-4 object-cover mr-2"
+                                />
+                                <div className="text-sm text-gray-200">
+                                  {game?.team_two?.name}
+                                </div>
                               </div>
                             </div>
                           ) : (
                             <div className="flex flex-1 flex-col px-4">
-                              <div className="text-sm text-gray-200">
-                                {game?.name}
+                              <div className="flex items-center">
+                                <Image
+                                  src={game?.event_logo}
+                                  alt={game?.name}
+                                  width={10}
+                                  height={10}
+                                  className="h-4 w-4 object-cover mr-2"
+                                />
+                                <div className="text-sm text-gray-200">
+                                  {game?.name}
+                                </div>
                               </div>
                             </div>
                           )}
@@ -570,17 +608,44 @@ export default function Content({
                           {/* Column 2: Team or Game name */}
                           {game?.type === "Teams" ? (
                             <div className="flex flex-col">
-                              <div className="text-sm text-gray-200">
-                                {game?.team_one?.name}
+                              <div className="flex items-center">
+                                <Image
+                                  src={game?.team_one?.logo}
+                                  alt={game?.team_one?.name}
+                                  width={10}
+                                  height={10}
+                                  className="h-4 w-4 object-cover mr-2"
+                                />
+                                <div className="text-sm text-gray-200">
+                                  {game?.team_one?.name}
+                                </div>
                               </div>
-                              <div className="text-sm text-gray-200">
-                                {game?.team_two?.name}
+                              <div className="flex items-center">
+                                <Image
+                                  src={game?.team_two?.logo}
+                                  alt={game?.team_two?.name}
+                                  width={10}
+                                  height={10}
+                                className="h-4 w-4 object-cover mr-2"
+                                />
+                                <div className="text-sm text-gray-200">
+                                  {game?.team_two?.name}
+                                </div>
                               </div>
                             </div>
                           ) : (
                             <div className="flex flex-col">
-                              <div className="text-sm text-gray-200">
-                                {game?.name}
+                              <div className="flex items-center">
+                                <Image
+                                  src={game?.event_logo}
+                                  alt={game?.name}
+                                  width={10}
+                                  height={10}
+                                  className="h-4 w-4 object-cover mr-2"
+                                />
+                                <div className="text-sm text-gray-200">
+                                  {game?.name}
+                                </div>
                               </div>
                             </div>
                           )}
