@@ -9,6 +9,14 @@ import _ from "lodash"
 import { getGameBySlug } from "@/queries/getGameBySlug"
 import { MatchCountdown } from "@/components/ui/countdown"
 
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  return {
+    alternates: {
+      canonical: `https://totalsportek.world/game/${params.slug}`,
+    },
+  }
+}
+
 export default async function GamePage({ params }: { params: { slug: string } }) {
   // Fetch streams for this game
   const gameData = await getGameBySlug(params.slug)

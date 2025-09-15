@@ -26,6 +26,9 @@ export async function generateMetadata() {
       description: page.description,
       url: `https://totalsportek.com/`,
     },
+    alternates: {
+      canonical: `https://totalsportek.world/`,
+    },
   }
 }
 

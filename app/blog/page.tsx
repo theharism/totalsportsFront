@@ -25,6 +25,9 @@ export async function generateMetadata() {
     other: {
       'article:published_time': new Date().toISOString(),
     },
+    alternates: {
+      canonical: `https://totalsportek.world/blog`,
+    },
   }
 }
 

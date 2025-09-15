@@ -35,6 +35,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     other: {
       'article:published_time': publishedTime,
     },
+    alternates: {
+      canonical: `https://totalsportek.world/league/${params.slug}`,
+    },
   }
 }
 

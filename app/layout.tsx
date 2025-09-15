@@ -17,9 +17,8 @@ export default function RootLayout({
       <html lang="en">
         <head>
           {/* <script type="text/javascript" src="//totalsportek.world/aiman.js"></script> */}
-          <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
-          <link rel="canonical" href="https://totalsportek.world/" />
-          <meta name="monetag" content="4f46dc0cea68c7fd9b4c5afcf7575e56"></meta>
+          {/* <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script> */}
+          {/* <meta name="monetag" content="4f46dc0cea68c7fd9b4c5afcf7575e56"></meta>
           <Script id="ld-json-org" type="application/ld+json">
             {JSON.stringify({
               "@context": "https://schema.org",
@@ -37,7 +36,7 @@ export default function RootLayout({
               })([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));`,
             }}
           ></script>
-          <meta name="admaven-placement" content="BqdU5qdaH" />
+          <meta name="admaven-placement" content="BqdU5qdaH" /> */}
         </head>
         <body>
             {children}
