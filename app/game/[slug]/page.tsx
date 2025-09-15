@@ -34,7 +34,7 @@ export default async function GamePage({ params }: { params: { slug: string } })
             Totalsportek
           </Link>
           <span className="text-gray-600">/</span>
-          <Link href={`/category/${game.category.slug}`} className="text-blue-500 hover:underline">
+          <Link href={`/league/${game.category.slug}`} className="text-blue-500 hover:underline">
             {game.category.name} Streams
           </Link>
           <span className="text-gray-600">/</span>

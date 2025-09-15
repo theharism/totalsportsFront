@@ -40,7 +40,7 @@ const nextConfig = {
         destination: 'https://dashgenius.space/uploads/:path*',
       },
       {
-        source: '/category/uploads/:path*',
+        source: '/league/uploads/:path*',
         destination: 'https://dashgenius.space/uploads/:path*',
       },
       {
@@ -50,62 +50,6 @@ const nextConfig = {
       {
         source: '/streams/uploads/:path*',
         destination: 'https://dashgenius.space/uploads/:path*',
-      },
-      {
-        source: '/soccer',
-        destination: '/streams/soccer',
-      },
-      {
-        source: '/cricket',
-        destination: '/streams/cricket',
-      },
-      {
-        source: '/motogp',
-        destination: '/streams/motogp',
-      },
-      {
-        source: '/f1',
-        destination: '/streams/f1',
-      },
-      {
-        source: '/nba',
-        destination: '/streams/nba',
-      },
-      {
-        source: '/nfl',
-        destination: '/streams/nfl',
-      },
-      {
-        source: '/mlb',
-        destination: '/streams/mlb',
-      },
-      {
-        source: '/nhl',
-        destination: '/streams/nhl',
-      },
-      {
-        source: '/ufc',
-        destination: '/streams/ufc',
-      },
-      {
-        source: '/wwe',
-        destination: '/streams/wwe',
-      },
-      {
-        source: '/boxing',
-        destination: '/streams/boxing',
-      },
-      {
-        source: '/tennis',
-        destination: '/streams/tennis',
-      },
-      {
-        source: '/rugby',
-        destination: '/streams/rugby',
-      },
-      {
-        source: '/blog',
-        destination: '/streams/blog',
       },
     ];
   },

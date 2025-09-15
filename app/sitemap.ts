@@ -37,7 +37,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const categoryUrls =
     categories?.data?.map((c: any) => ({
-      url: `${baseUrl}/category/${c.slug}`,
+      url: `${baseUrl}/league/${c.slug}`,
       lastModified: new Date(c.updatedAt),
       changeFrequency: 'weekly',
       priority: 0.7,

@@ -107,7 +107,7 @@ function BlogContent({ blog }: { blog: any }) {
         <div className="mt-8 flex flex-wrap items-center gap-2">
           <span className="text-sm text-gray-400">Category:</span>
           <Link
-            href={`/category/${blog.category.slug}`}
+            href={`/league/${blog.category.slug}`}
             className="rounded-md bg-orange-500 px-3 py-1 text-sm font-medium text-white hover:bg-orange-600"
           >
             {blog.category.name}
