@@ -36,7 +36,6 @@ export default function RootLayout({
               })([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));`,
             }}
           ></script>
-          <meta name="admaven-placement" content="BqdU5qdaH" />
         </head>
         <body>
             {children}
