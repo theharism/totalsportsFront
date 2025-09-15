@@ -48,6 +48,8 @@ export default async function Home() {
                 <Link
                   key={blog._id}
                   href={`/blog/${blog.slug}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group block overflow-hidden rounded-lg bg-[#2a2a2a] transition-all hover:bg-[#333333] shadow-lg">
                   <div className="aspect-video w-full overflow-hidden">
                     <Image

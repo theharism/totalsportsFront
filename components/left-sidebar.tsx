@@ -16,6 +16,8 @@ export default function LeftSidebar({categories, teams}: {categories: any[], tea
           {categories.map((category: any) => (
             <li key={category._id}>
               <Link
+                target="_blank"
+                rel="noopener noreferrer"
                 href={`/league/${category.slug}`}
                 className="flex items-center gap-2 text-gray-300 hover:text-white"
               >
@@ -45,6 +47,8 @@ export default function LeftSidebar({categories, teams}: {categories: any[], tea
           {teams.map((team: any) => (
             <li key={team._id}>
               <Link
+                target="_blank"
+                rel="noopener noreferrer"
                 href={`/team/${team.slug}`}
                 className="flex items-center gap-2 text-gray-300 hover:text-white"
               >

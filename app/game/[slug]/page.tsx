@@ -38,11 +38,19 @@ export default async function GamePage({ params }: { params: { slug: string } })
       <div className="container mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <div className="mb-6 flex items-center gap-2 text-sm">
-          <Link href="/" className="text-orange-500 hover:underline">
+          <Link 
+          href="/" 
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-orange-500 hover:underline">
             Totalsportek
           </Link>
           <span className="text-gray-600">/</span>
-          <Link href={`/league/${game.category.slug}`} className="text-blue-500 hover:underline">
+          <Link 
+            href={`/league/${game.category.slug}`} 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 hover:underline">
             {game.category.name} Streams
           </Link>
           <span className="text-gray-600">/</span>

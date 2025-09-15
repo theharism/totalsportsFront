@@ -56,7 +56,10 @@ export default async function CategoryPage({ params }: { params: { slug: string 
       <div className="container mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <div className="mb-6 flex items-center gap-2 text-sm">
-          <Link href="/" className="text-orange-500 hover:underline">
+          <Link 
+          target="_blank"
+          rel="noopener noreferrer"
+          href="/" className="text-orange-500 hover:underline">
             Totalsportek
           </Link>
           <span className="text-gray-600">/</span>

@@ -127,6 +127,8 @@ export default function Footer() {
               <Link
                 key={link.name}
                 href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-400 hover:text-gray-300 transition-colors text-xs"
               >
                 {link.name}
@@ -141,6 +143,8 @@ export default function Footer() {
             {"Always free website. visit homepage at "}
             <Link
               href="https://totalsportek.world"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-gray-400 hover:text-gray-300 underline transition-colors"
             >
               TOTALSPORTEK.WORLD

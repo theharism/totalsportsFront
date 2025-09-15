@@ -34,7 +34,10 @@ export default function Header() {
         <div className="sm:hidden">
           <div className="flex items-center justify-between py-2">
             {/* Logo - Left aligned and larger */}
-            <Link href="/" className="text-3xl font-bold text-orange-500 tracking-widest">
+            <Link 
+              target="_blank"
+              rel="noopener noreferrer"
+              href="/" className="text-3xl font-bold text-orange-500 tracking-widest">
               TOTALSPORTEK
             </Link>
 
@@ -62,6 +65,8 @@ export default function Header() {
                     key={sport.name}
                     href={sport.href}
                     onClick={closeMenu}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center px-6 py-3 text-md font-bold text-gray-400 hover:bg-gray-900 hover:text-orange-500 transition-colors"
                   >
                     <div className="flex items-center">
@@ -80,7 +85,10 @@ export default function Header() {
         {/* Desktop Header */}
         <div className="hidden sm:block">
           <div className="flex flex-col items-center justify-start space-y-2 sm:flex-row sm:space-y-0 sm:space-x-4">
-            <Link href="/" className="text-2xl font-bold text-orange-500 md:text-2xl tracking-widest">
+            <Link 
+              target="_blank"
+              rel="noopener noreferrer"
+              href="/" className="text-2xl font-bold text-orange-500 md:text-2xl tracking-widest">
               TOTALSPORTEK
             </Link>
             <div className="h-4 sm:h-0 sm:w-0"></div>
@@ -89,6 +97,8 @@ export default function Header() {
                 <Link
                   key={sport.name}
                   href={sport.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-xs hover:text-orange-500 md:text-sm tracking-widest transition-colors"
                 >
                   {sport.name}

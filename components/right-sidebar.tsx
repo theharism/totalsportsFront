@@ -14,6 +14,8 @@ export default function RightSidebar({ blogs = [] }: RightSidebarProps) {
           {blogs.map((blog: Blog) => (
             <Link
             key={blog._id}
+            target="_blank"
+            rel="noopener noreferrer"
             href={`/blog/${blog.slug}`}
             className="group block overflow-hidden rounded-lg bg-[#2a2a2a] transition-all hover:bg-[#333333]"
           >

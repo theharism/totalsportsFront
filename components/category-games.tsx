@@ -153,7 +153,10 @@ export default function CategoryGames({ games }: { games: Game[] }) {
               </div>
             </div>
 
-            <Link href={`/game/${game.slug}`} className="rounded-md p-2 hover:bg-[#333333]">
+            <Link 
+              target="_blank"
+              rel="noopener noreferrer"
+              href={`/game/${game.slug}`} className="rounded-md p-2 hover:bg-[#333333]">
               <ExternalLink className="h-5 w-5 text-gray-400" />
             </Link>
           </div>

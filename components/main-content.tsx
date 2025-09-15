@@ -77,6 +77,8 @@ export default function Content({
             <Link
               key={sport.name}
               href={sport.href}
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex flex-col items-center gap-1 min-w-[60px] hover:opacity-75 transition-opacity"
               title={sport.name}
             >
