@@ -20,7 +20,7 @@ export default function RootLayout({
           {/* <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script> */}
           <meta name="monetag" content="4f46dc0cea68c7fd9b4c5afcf7575e56"></meta>
           <script src="https://fpyf8.com/88/tag.min.js" data-zone="171473" async data-cfasync="false"></script>
-          <Script id="ld-json-org" type="application/ld+json">
+          {/* <Script id="ld-json-org" type="application/ld+json">
             {JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
@@ -28,7 +28,22 @@ export default function RootLayout({
               "url": "https://totalsportek.world",
               "logo": "https://totalsportek.world/logo.png",
             })}
-          </Script>
+          </Script> */}
+          <Script id="ld-json-org" type="application/ld+json">
+  {JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "TotalSportek",
+    "alternateName": "Total Sportek", // Alternative name variations
+    "url": "https://totalsportek.world",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://totalsportek.world/logo.png",
+      "width": "112",
+      "height": "112"
+    },
+  })}
+</Script>
           {/* <script
             dangerouslySetInnerHTML={{
               __html: `(s => {
