@@ -49,7 +49,7 @@ export default async function Home() {
   return (
     <div className="min-h-screen bg-[#121212]">
       <Header />
-      <div className="container mx-auto grid grid-cols-1 gap-4 px-4 py-2 md:grid-cols-4 lg:grid-cols-12">
+      <div className="mx-auto w-full max-w-screen-xl grid grid-cols-1 gap-4 px-4 py-2 md:grid-cols-4 lg:grid-cols-12">
         {/* Main Content - First on mobile, center on desktop */}
         <div className="order-1 md:order-2 md:col-span-2 lg:col-span-6">
           <MainContent games={games} isCategory={false} />
@@ -74,7 +74,10 @@ export default async function Home() {
         <div className="order-4 md:order-4 md:col-span-2 lg:hidden">
           {blog.length > 0 && <div className="rounded-lg bg-[#1a1a1a] p-6 mt-1">
             {blog?.map((blog: any) => (
-              <div key={blog._id} className="blog" dangerouslySetInnerHTML={{ __html: blog.content }} />
+              <div 
+                key={blog._id} 
+                className="blog prose prose-invert max-w-full break-words overflow-hidden"
+                dangerouslySetInnerHTML={{ __html: blog.content }} />
             ))}
           </div>}
         </div>

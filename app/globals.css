@@ -55,3 +55,12 @@ div.blog ul li {
   list-style: disc !important;
   margin-left: 1.5rem;
 }
+
+html, body {
+  overflow-x: hidden;
+}
+
+.blog img {
+  max-width: 100%;
+  height: auto;
+}
