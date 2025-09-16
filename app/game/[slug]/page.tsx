@@ -10,7 +10,25 @@ import { getGameBySlug } from "@/queries/getGameBySlug"
 import { MatchCountdown } from "@/components/ui/countdown"
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
+
+  const gameData = await getGameBySlug(params.slug)
+  const game = _.get(gameData, "data", {})
+
+  const publishedTime = game?.createdAt
+    ? new Date(game.createdAt).toISOString()
+    : new Date().toISOString(); // fallback
+
   return {
+    title: `${game.team_one.name} vs ${game.team_two.name} Free Live Stream - Totalsportek.world`,
+    description: `Watch ${game.team_one.name} vs ${game.team_two.name} free live streams. Match starts on ${game.starting_date} at ${game.starting_time} UK time. Best streaming links available on Totalsportek.world.`,
+    openGraph: {
+      title: `${game.team_one.name} vs ${game.team_two.name} Free Live Stream - Totalsportek.world`,
+      description: `Watch ${game.team_one.name} vs ${game.team_two.name} free live streams. Match starts on ${game.starting_date} at ${game.starting_time} UK time. Best streaming links available on Totalsportek.world.`,
+      url: `https://totalsportek.com/game/${params.slug}`,
+    },
+    other: {
+      'article:published_time': publishedTime,
+    },
     alternates: {
       canonical: `https://totalsportek.world/game/${params.slug}`,
     },
