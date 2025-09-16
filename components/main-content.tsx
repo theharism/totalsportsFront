@@ -71,7 +71,7 @@ export default function Content({
 
   return (
     <>
-      <div className="flex gap-4 overflow-x-auto mt-2 pb-2 scrollbar-hide sm:hidden">
+      {/* <div className="flex gap-4 overflow-x-auto mt-2 pb-2 scrollbar-hide sm:hidden">
         <div className="flex gap-4 min-w-max">
           {sports?.map((sport) => (
             <Link
@@ -107,7 +107,34 @@ export default function Content({
             </Link>
           ))}
         </div>
-      </div>
+      </div> */}
+      <div className="flex gap-4 overflow-x-auto mt-2 pb-2 scrollbar-hide sm:hidden w-full">
+  <div className="flex gap-4 min-w-max">
+    {sports?.map((sport) => (
+      <Link
+        key={sport.name}
+        href={sport.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex flex-col items-center gap-1 min-w-[60px] max-w-[80px] hover:opacity-75 transition-opacity"
+        title={sport.name}
+      >
+        <div className="w-8 h-8 flex items-center justify-center overflow-hidden">
+          <Image
+            src={sport.icon}
+            alt={sport.name}
+            width={24}
+            height={24}
+            className="object-contain"
+          />
+        </div>
+        <span className="text-xs text-gray-300 text-center leading-tight truncate w-full">
+          {sport.name}
+        </span>
+      </Link>
+    ))}
+  </div>
+</div>
       <div className="rounded-lg bg-[#1a1a1a] p-4">
         {!isCategory && (
           <Tabs
