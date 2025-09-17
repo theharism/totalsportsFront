@@ -27,8 +27,33 @@ export default function RootLayout({
           async
           data-cfasync="false"
         ></script>
+         <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                name: "TotalSportek",
+                alternateName: "Total Sportek",
+                url: "https://totalsportek.world",
+                logo: {
+                  "@type": "ImageObject",
+                  url: "https://totalsportek.world/logo.png",
+                  width: "112",
+                  height: "112",
+                },
+              }),
+            }}
+          />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                aclib.runPop({zoneId: '10314354'});
+              `,
+            }}
+          />
 
-        <Script id="ld-json-org" type="application/ld+json">
+        {/* <Script id="ld-json-org" type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Organization",
@@ -45,7 +70,7 @@ export default function RootLayout({
         </Script>
         <Script>
           {`aclib.runPop({zoneId: '10314354'});`}
-        </Script>
+        </Script> */}
       </head>
       <body>
         <div className="relative overflow-x-hidden">{children}</div>
