@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     openGraph: {
       title: page.title,
       description: page.description,
-      url: `https://totalsportek.com/streams/${params.slug}`,
+      url: `https://totalsportek.world/streams/${params.slug}`,
     },
     other: {
       'article:published_time': publishedTime,

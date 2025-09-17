@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     openGraph: {
       title: `${game.team_one.name} vs ${game.team_two.name} Free Live Stream - Totalsportek.world`,
       description: `Watch ${game.team_one.name} vs ${game.team_two.name} free live streams. Match starts on ${game.starting_date} at ${game.starting_time} UK time. Best streaming links available on Totalsportek.world.`,
-      url: `https://totalsportek.com/game/${params.slug}`,
+      url: `https://totalsportek.world/game/${params.slug}`,
     },
     other: {
       'article:published_time': publishedTime,

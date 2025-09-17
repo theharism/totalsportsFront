@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     openGraph: {
       title: blog.title,
       description: blog.description,
-      url: `https://totalsportek.com/blog/${params.slug}`,
+      url: `https://totalsportek.world/blog/${params.slug}`,
       type: 'article',
       publishedTime,
     },

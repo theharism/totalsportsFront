@@ -24,7 +24,7 @@ export async function generateMetadata() {
     openGraph: {
       title: page.title,
       description: page.description,
-      url: `https://totalsportek.com/`,
+      url: `https://totalsportek.world/`,
     },
     alternates: {
       canonical: `https://totalsportek.world/`,

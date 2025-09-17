@@ -20,7 +20,7 @@ export async function generateMetadata() {
     openGraph: {
       title: page.title,
       description: page.description,
-      url: `https://totalsportek.com/blog`,
+      url: `https://totalsportek.world/blog`,
     },
     other: {
       'article:published_time': new Date().toISOString(),
