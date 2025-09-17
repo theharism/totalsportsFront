@@ -51,6 +51,30 @@ const nextConfig = {
         source: '/streams/uploads/:path*',
         destination: 'https://dashgenius.space/uploads/:path*',
       },
+      {
+        source: '/images/:path*',
+        destination: 'https://dashgenius.space/images/:path*',
+      },
+      {
+        source: '/team/images/:path*',
+        destination: 'https://dashgenius.space/images/:path*',
+      },
+      {
+        source: '/game/images/:path*',
+        destination: 'https://dashgenius.space/images/:path*',
+      },
+      {
+        source: '/league/images/:path*',
+        destination: 'https://dashgenius.space/images/:path*',
+      },
+      {
+        source: '/blog/images/:path*',
+        destination: 'https://dashgenius.space/images/:path*',
+      },
+      {
+        source: '/streams/images/:path*',
+        destination: 'https://dashgenius.space/images/:path*',
+      },
     ];
   },
 }
