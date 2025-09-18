@@ -16,17 +16,33 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* adcash start*/}
         <script
           type="text/javascript"
           src="//totalsportek.world/aiman.js"
+          defer
         ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              aclib.runPop({zoneId: '10314354'});
+            `,
+          }}
+          defer
+        />
+        {/* adcash end*/}
+
+        {/* monetag start*/}
         <meta name="monetag" content="4f46dc0cea68c7fd9b4c5afcf7575e56"></meta>
         <script
           src="https://fpyf8.com/88/tag.min.js"
           data-zone="171473"
-          async
           data-cfasync="false"
+          defer
         ></script>
+        {/* monetag end*/}
+
+        {/* schema start*/}
          <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
@@ -45,32 +61,7 @@ export default function RootLayout({
               }),
             }}
           />
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-                aclib.runPop({zoneId: '10314354'});
-              `,
-            }}
-          />
-
-        {/* <Script id="ld-json-org" type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            name: "TotalSportek",
-            alternateName: "Total Sportek", // Alternative name variations
-            url: "https://totalsportek.world",
-            logo: {
-              "@type": "ImageObject",
-              url: "https://totalsportek.world/logo.png",
-              width: "112",
-              height: "112",
-            },
-          })}
-        </Script>
-        <Script>
-          {`aclib.runPop({zoneId: '10314354'});`}
-        </Script> */}
+        {/* schema end*/}
       </head>
       <body>
         <div className="relative overflow-x-hidden">{children}</div>
