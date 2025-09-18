@@ -61,7 +61,6 @@ export default function Content({
     }
     // Group the filtered games by category
     const grouped = groupGamesByCategory(filtered);
-    console.log(grouped)
     setGroupedGames(grouped);
   }, [activeTab, games]);
 
