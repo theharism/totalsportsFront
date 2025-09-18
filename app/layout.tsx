@@ -21,7 +21,7 @@ export default function RootLayout({
           type="text/javascript"
           src="//totalsportek.world/aiman.js"
         ></script>
-        
+
         {/* adcash end*/}
 
         {/* monetag start*/}
@@ -35,24 +35,24 @@ export default function RootLayout({
         {/* monetag end*/}
 
         {/* schema start*/}
-         <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "Organization",
-                name: "TotalSportek",
-                alternateName: "Total Sportek",
-                url: "https://totalsportek.world",
-                logo: {
-                  "@type": "ImageObject",
-                  url: "https://totalsportek.world/logo.png",
-                  width: "112",
-                  height: "112",
-                },
-              }),
-            }}
-          />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "TotalSportek",
+              alternateName: "Total Sportek",
+              url: "https://totalsportek.world",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://totalsportek.world/logo.png",
+                width: "112",
+                height: "112",
+              },
+            }),
+          }}
+        />
         {/* schema end*/}
         <script
           dangerouslySetInnerHTML={{
@@ -69,6 +69,39 @@ export default function RootLayout({
             `,
           }}
         />
+
+        {/* Histats.com START */}
+        <div id="histats_counter"></div>
+
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: `
+              var _Hasync = _Hasync || [];
+              _Hasync.push(['Histats.start', '1,4977880,4,431,112,75,00011111']);
+              _Hasync.push(['Histats.fasi', '1']);
+              _Hasync.push(['Histats.track_hits', '']);
+              (function() {
+                var hs = document.createElement('script');
+                hs.type = 'text/javascript';
+                hs.async = true;
+                hs.src = ('//s10.histats.com/js15_as.js');
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
+              })();
+            `,
+          }}
+        />
+
+        <noscript>
+          <a href="/" target="_blank">
+            <img
+              src="//sstatic1.histats.com/0.gif?4977880&101"
+              alt="php hit counter"
+              border="0"
+            />
+          </a>
+        </noscript>
+        {/* Histats.com END */}
       </head>
       <body>
         <div className="relative overflow-x-hidden">{children}</div>
