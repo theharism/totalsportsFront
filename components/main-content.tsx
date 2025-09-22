@@ -171,7 +171,10 @@ export default function Content({
               {importantGames.length > 0 && (
                   <div className="space-y-2">
                     <div className="flex items-center gap-2 border-b border-gray-800 pb-2">
-                      <h3 className="text-lg font-medium text-white">
+                      {/* <h3 className="text-lg font-medium text-white">
+                        Important Games
+                      </h3> */}
+                      <h3 className="text-lg font-medium text-red-500 animate-blink">
                         Important Games
                       </h3>
                     </div>

@@ -85,3 +85,18 @@ div[znid] {
   left: -9999px !important;   /* push it off-screen */
 }
 
+@keyframes blink {
+  0%, 50%, 100% {
+    opacity: 1;
+    color: #ef4444; /* Tailwind red-500 */
+  }
+  25%, 75% {
+    opacity: 0;
+    color: #fff; /* fallback white between blinks */
+  }
+}
+
+.animate-blink {
+  animation: blink 3s infinite;
+}
+
