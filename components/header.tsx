@@ -35,8 +35,6 @@ export default function Header() {
           <div className="flex items-center justify-between py-2">
             {/* Logo - Left aligned and larger */}
             <Link 
-              target="_blank"
-              rel="noopener noreferrer"
               href="/" className="text-3xl font-bold text-orange-500 tracking-widest">
               TOTALSPORTEK
             </Link>
@@ -86,8 +84,6 @@ export default function Header() {
         <div className="hidden sm:block">
           <div className="flex flex-col items-center justify-start space-y-2 sm:flex-row sm:space-y-0 sm:space-x-4">
             <Link 
-              target="_blank"
-              rel="noopener noreferrer"
               href="/" className="text-2xl font-bold text-orange-500 md:text-2xl tracking-widest">
               TOTALSPORTEK
             </Link>
