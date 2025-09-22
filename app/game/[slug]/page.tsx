@@ -18,12 +18,15 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     ? new Date(game.createdAt).toISOString()
     : new Date().toISOString(); // fallback
 
+    const title = game.type === "Teams" ? `${game.team_one.name} vs ${game.team_two.name} Free Live Stream - Totalsportek.world` : `${game.name} Free Live Stream - Totalsportek.world`;
+    const description = game.type === "Teams" ? `Watch ${game.team_one.name} vs ${game.team_two.name} free live streams. Match starts on ${game.starting_date} at ${game.starting_time} UK time. Best streaming links available on Totalsportek.world.` : `Watch ${game.name} free live streams. Match starts on ${game.starting_date} at ${game.starting_time} UK time. Best streaming links available on Totalsportek.world.`;
+
   return {
-    title: `${game.team_one.name} vs ${game.team_two.name} Free Live Stream - Totalsportek.world`,
-    description: `Watch ${game.team_one.name} vs ${game.team_two.name} free live streams. Match starts on ${game.starting_date} at ${game.starting_time} UK time. Best streaming links available on Totalsportek.world.`,
+    title: title,
+    description: description,
     openGraph: {
-      title: `${game.team_one.name} vs ${game.team_two.name} Free Live Stream - Totalsportek.world`,
-      description: `Watch ${game.team_one.name} vs ${game.team_two.name} free live streams. Match starts on ${game.starting_date} at ${game.starting_time} UK time. Best streaming links available on Totalsportek.world.`,
+      title: title,
+      description: description,
       url: `https://totalsportek.world/game/${params.slug}`,
     },
     other: {
