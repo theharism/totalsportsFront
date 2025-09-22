@@ -25,14 +25,22 @@ export default function RootLayout({
         {/* adcash end*/}
 
         {/* monetag start*/}
-        {/* <meta name="monetag" content="4f46dc0cea68c7fd9b4c5afcf7575e56"></meta>
+        <meta name="monetag" content="4f46dc0cea68c7fd9b4c5afcf7575e56"></meta>
         <script
           src="https://fpyf8.com/88/tag.min.js"
           data-zone="171473"
           data-cfasync="false"
           defer
-        ></script> */}
+        ></script>
         {/* monetag end*/}
+
+        {/* Disable scroll restoration and force scroll to top on load */}
+        <Script id="scroll-restoration" strategy="beforeInteractive">
+          {`if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }`}
+        </Script>
+        <Script id="scroll-to-top-on-load" strategy="afterInteractive">
+          {`window.scrollTo(0, 0);`}
+        </Script>
 
         {/* schema start*/}
         <script
@@ -69,9 +77,6 @@ export default function RootLayout({
             `,
           }}
         />
-
-        {/* Histats.com START */}
-        <div id="histats_counter"></div>
 
         <script
           type="text/javascript"
