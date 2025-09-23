@@ -43,6 +43,10 @@ export function calculateRemainingTime(gameStatus: string, startDateStr: string,
     console.warn("Missing date or time:", { startDateStr, startTimeStr });
     return "Invalid time";
   }
+
+  if(gameStatus === 'Ended') {
+    return "Game Ended";
+  }
   
   const startingTime = dayjs.tz(`${startDateStr} ${startTimeStr}`, 'YYYY-MM-DD HH:mm', 'Etc/GMT');
   let endingTime;

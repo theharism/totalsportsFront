@@ -44,7 +44,7 @@ export default function Content({
       switch (activeTab) {
         case "streams":
           filtered = games.filter(
-            (game: Game) => game.status === "Live" || game.status === "Upcoming"
+            (game: Game) => game.status === "Live" || game.status === "Upcoming" || game.status === "Ended"
           );
           break;
         case "schedule":
