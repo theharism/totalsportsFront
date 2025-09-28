@@ -16,19 +16,6 @@ export const mobile_sports = [
 
 export const web_sports = [
   ...mobile_sports,
-  // { name: "Football", href: "/streams/soccer", icon: "https://res.cloudinary.com/do7bvi6wq/image/upload/v1753029508/categories/bkjc4vxhwpqcbfnds6wl.png" },
-  // { name: "Cricket", href: "/streams/cricket", icon: "https://res.cloudinary.com/do7bvi6wq/image/upload/v1753305301/categories/nt5rssjannej4t1po58i.png" },
-  // { name: "F1", href: "/streams/f1", icon: "https://res.cloudinary.com/do7bvi6wq/image/upload/v1753029640/categories/gevav7z9yehdgstttczm.png" },
-  // { name: "MotoGP", href: "/streams/motogp", icon: "https://res.cloudinary.com/do7bvi6wq/image/upload/v1753029671/categories/g0ygdvuoty9xmfnihhx9.png" },
-  // { name: "NBA", href: "/streams/nba", icon: "https://res.cloudinary.com/do7bvi6wq/image/upload/v1753029700/categories/zy9r4oui7hqqmk8oyslc.png" },
-  // { name: "NFL", href: "/streams/nfl", icon: "https://res.cloudinary.com/do7bvi6wq/image/upload/v1753029743/categories/f5nyrncwhw2bem9pqw7t.png" },
-  // { name: "MLB", href: "/streams/mlb", icon: "https://res.cloudinary.com/do7bvi6wq/image/upload/v1753029787/categories/g7b8zprjimdqbsq8iuxt.png" },
-  // { name: "NHL", href: "/streams/nhl", icon: "https://res.cloudinary.com/do7bvi6wq/image/upload/v1753029827/categories/sbam4sfkafkubzlwauli.png" },
-  // { name: "UFC", href: "/streams/ufc", icon: "https://res.cloudinary.com/do7bvi6wq/image/upload/v1753029883/categories/o2yaozlsffgud4fkwwzb.png" },
-  // { name: "WWE", href: "/streams/wwe", icon: "https://res.cloudinary.com/do7bvi6wq/image/upload/v1753029926/categories/za3nkd3uwgnfxfvf0bzi.png" },
-  // { name: "Boxing", href: "/streams/boxing", icon: "https://res.cloudinary.com/do7bvi6wq/image/upload/v1753029963/categories/ius3lqp7avmls0fffusy.png" },
-  // { name: "Tennis", href: "/streams/tennis", icon: "https://res.cloudinary.com/do7bvi6wq/image/upload/v1753029987/categories/d9m6qmpotoznvep4vlbz.png" },
-  // { name: "Rugby", href: "/streams/rugby", icon: "https://res.cloudinary.com/do7bvi6wq/image/upload/v1753030011/categories/gr76mgqwlbokvjzccskp.png" },
   { name: "Blog", href: "/blog", icon: "blog" },
 ]
 

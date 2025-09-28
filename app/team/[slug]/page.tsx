@@ -1,7 +1,6 @@
 import Header from "@/components/header"
 import Link from "next/link"
 import Image from "next/image"
-import { getTeams } from "@/lib/api"
 import TeamGames from "@/components/team-games"
 import _ from "lodash"
 import { getBlogByTeam } from "@/queries/getBlogByTeam"
