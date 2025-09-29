@@ -72,12 +72,23 @@ export default async function BlogPage({ params }: { params: { slug: string } })
 }
 
 function BlogContent({ blog }: { blog: any }) {
+  const styles = {
+    borderRadius: "0.5rem",
+    border: "1px solid gray",
+    margin: "4rem",
+    padding: "2rem",
+  }
+
   if (!blog || !blog.title) {
-    return <div className="rounded-lg bg-[#1a1a1a] p-6 text-white">Blog not found</div>
+    return (
+      <div className="rounded-lg bg-[#1a1a1a] p-6 text-white" style={styles}>
+        Blog not found
+      </div>
+    )
   }
 
   return (
-    <article className="rounded-lg bg-[#1a1a1a] p-6">
+    <article className="rounded-lg bg-[#1a1a1a]" style={styles}>
       <h1 className="mb-6 text-3xl font-bold text-white">{blog.title}</h1>
 
       {blog.image && (
