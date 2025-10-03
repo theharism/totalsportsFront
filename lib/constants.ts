@@ -1,5 +1,5 @@
 export const mobile_sports = [
-  { name: "Football", href: "/streams/soccer", icon: "images/Football-logo.webp" },
+  { name: "Football", href: "/streams/1/soccer", icon: "images/Football-logo.webp" },
   { name: "Cricket", href: "/streams/cricket", icon: "images/Cricket-logo.webp" },
   { name: "F1", href: "/streams/f1", icon: "images/f1-logo.webp" },
   { name: "MotoGP", href: "/streams/motogp", icon: "images/MotoGP-logo.webp" },
