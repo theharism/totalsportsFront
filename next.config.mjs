@@ -75,6 +75,10 @@ const nextConfig = {
         source: '/streams/images/:path*',
         destination: 'https://dashgenius.space/images/:path*',
       },
+      {
+        source: '/streams/1/images/:path*',
+        destination: 'https://dashgenius.space/images/:path*',
+      },
     ];
   },
 }
